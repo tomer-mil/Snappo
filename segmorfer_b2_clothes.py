@@ -13,7 +13,7 @@ model = SegformerForSemanticSegmentation.from_pretrained("mattmdjaga/segformer_b
 model.eval()
 
 # Load and process image
-image = Image.open("./demo_photo.jpeg")  # Replace with your image path
+image = Image.open("sam2_function/demo_photo.jpeg")  # Replace with your image path
 inputs = processor(images=image, return_tensors="pt")
 
 # Run inference
