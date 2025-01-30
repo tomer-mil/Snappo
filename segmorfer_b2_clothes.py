@@ -1,5 +1,6 @@
 import os
 import torch
+from PIL.ImageFile import ImageFile
 from transformers import SegformerImageProcessor, SegformerForSemanticSegmentation
 import cv2
 from PIL import Image
@@ -8,34 +9,69 @@ import numpy as np
 from typing import Tuple, Dict
 from ClotheObject import ClotheObject
 
+
 CATEGORY_MAP = {
-    1: "upper-clothes",
-    2: "pants",
-    3: "dress",
-    4: "skirt",
-    8: "hat",
-    9: "gloves",
-    10: "socks",
-    12: "shoes"
+        0: "Background",
+        1: "Hat",
+        2: "Hair",
+        3: "Sunglasses",
+        4: "Upper-clothes",
+        5: "Skirt",
+        6: "Pants",
+        7: "Dress",
+        8: "Belt",
+        9: "Left-shoe",
+        10: "Right-shoe",
+        11: "Face",
+        12: "Left-leg",
+        13: "Right-leg",
+        14: "Left-arm",
+        15: "Right-arm",
+        16: "Bag",
+        17: "Scarf"
 }
 
 COLOR_MAP = {
-        0: [0, 0, 0],        # Background
-        1: [255, 0, 0],      # Upper-clothes
-        2: [0, 255, 0],      # Pants
-        3: [0, 0, 255],      # Dress
-        4: [255, 255, 0],    # Skirt
-        5: [255, 0, 255],    # Face
-        6: [0, 255, 255],    # Arms
-        7: [128, 0, 0],      # Legs
-        8: [0, 128, 0],      # Hat
-        9: [0, 0, 128],      # Gloves
-        10: [128, 128, 0],   # Socks
-        11: [128, 0, 128],   # Sunglasses
-        12: [0, 128, 128],   # Shoes
-        13: [64, 0, 0]       # Hair
-    }
+    0: [0, 0, 0],        # Background
+    1: [255, 0, 0],      # Hat
+    2: [0, 255, 0],      # Hair
+    3: [0, 0, 255],      # Sunglasses
+    4: [255, 255, 0],    # Upper-clothes
+    5: [255, 0, 255],    # Skirt
+    6: [0, 255, 255],    # Pants
+    7: [128, 0, 0],      # Dress
+    8: [0, 128, 0],      # Belt
+    9: [0, 0, 128],      # Left-shoe
+    10: [128, 128, 0],   # Right-shoe
+    11: [128, 0, 128],   # Face
+    12: [0, 128, 128],   # Left-leg
+    13: [64, 0, 0],      # Right-leg
+    14: [128, 128, 128], # Left-arm
+    15: [64, 64, 64],    # Right-arm
+    16: [192, 192, 192], # Bag
+    17: [64, 0, 128]     # Scarf
+}
 
+COLOR_NAME_MAP = {
+    0: "Black",        # Background
+    1: "Red",          # Hat
+    2: "Green",        # Hair
+    3: "Blue",         # Sunglasses
+    4: "Yellow",       # Upper-clothes
+    5: "Magenta",      # Skirt
+    6: "Cyan",         # Pants
+    7: "Maroon",       # Dress
+    8: "Dark Green",   # Belt
+    9: "Navy",         # Left-shoe
+    10: "Olive",       # Right-shoe
+    11: "Purple",      # Face
+    12: "Teal",        # Left-leg
+    13: "Brown",       # Right-leg
+    14: "Gray",        # Left-arm
+    15: "Dark Gray",   # Right-arm
+    16: "Silver",      # Bag
+    17: "Indigo"       # Scarf
+}
 
 def load_model_and_processor() -> Tuple[SegformerImageProcessor, SegformerForSemanticSegmentation]:
     processor = SegformerImageProcessor.from_pretrained("mattmdjaga/segformer_b2_clothes")
@@ -43,7 +79,7 @@ def load_model_and_processor() -> Tuple[SegformerImageProcessor, SegformerForSem
     model.eval()
     return processor, model
 
-def process_image(image_path: str, processor: SegformerImageProcessor) -> Tuple[Image.Image, Dict[str, torch.Tensor]]:
+def process_image(image_path: str, processor: SegformerImageProcessor) -> Tuple[ImageFile, Dict[str, torch.Tensor]]:
     image = Image.open(image_path)
     inputs = processor(images=image, return_tensors="pt")
     return image, inputs
@@ -51,11 +87,11 @@ def process_image(image_path: str, processor: SegformerImageProcessor) -> Tuple[
 def run_inference(model: SegformerForSemanticSegmentation, inputs: Dict[str, torch.Tensor]) -> torch.Tensor:
     with torch.no_grad():
         outputs = model(**inputs)
-    return outputs.logits
+    return outputs.logits  # shape (batch_size, num_labels, height/4, width/4)
 
 def get_segmentation_map(logits: torch.Tensor, image_size: Tuple[int, int]) -> np.ndarray:
     upsampled_logits = torch.nn.functional.interpolate(
-        logits,
+        input=logits,
         size=image_size[::-1],  # (height, width)
         mode="bilinear",
         align_corners=False,
@@ -94,14 +130,17 @@ def print_detected_items(seg_map: np.ndarray, color_map: Dict[int, list]) -> Non
     for label in unique_labels:
         if label in color_map:
             percentage = (seg_map == label).sum() / (seg_map.shape[0] * seg_map.shape[1]) * 100
-            print(f"Class {label}: {percentage:.1f}% of image")
+            print(f"{CATEGORY_MAP[label]} ({COLOR_NAME_MAP[label]}): {percentage:.1f}% of image")
 
 def extract_clothes(seg_map: np.ndarray, image: Image.Image, save_dir: str = "extracted_clothes") -> list[ClotheObject]:
     os.makedirs(save_dir, exist_ok=True)
     clothes_objects = []
+
+    detected_labels = [CATEGORY_MAP[x] for x in np.unique(seg_map)]
+    print("\nDetected clothes labels:", detected_labels)
     
     for label in CATEGORY_MAP.keys():
-        if label in np.unique(seg_map):
+        if label in detected_labels:
             mask = (seg_map == label)
             if not np.any(mask):
                 continue
@@ -130,7 +169,7 @@ def main(image_path: str):
     logits = run_inference(model, inputs)
     seg_map = get_segmentation_map(logits, image.size)
     colored_mask = create_colored_mask(seg_map, COLOR_MAP)
-    # display_results(image, colored_mask)
+    display_results(image, colored_mask)
     print_detected_items(seg_map, COLOR_MAP)
 
     clothes = extract_clothes(seg_map, image)
