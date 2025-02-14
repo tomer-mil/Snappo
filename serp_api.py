@@ -46,7 +46,7 @@ def parse_shopping_results(data):
         print(f"Error parsing shopping results: {e}")
         return []
 
-def search_product(query, limit=5):
+def search_product(query, limit=3):
     """
     Search for a product using SerpApi and return product details.
     """

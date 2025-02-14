@@ -5,7 +5,7 @@ Entry point for the Flask application.
 """
 
 from flask import Flask, request, jsonify
-from clothes_segmentation import load_segmentation_model, segment_clothes
+from drafts.clothes_segmentation import load_segmentation_model, segment_clothes
 from serp_api import search_product
 
 app = Flask(__name__)
