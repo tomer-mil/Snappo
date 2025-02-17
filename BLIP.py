@@ -23,6 +23,6 @@ def generate_detailed_caption(image_path):
     return caption
 
 # Example Usage
-image_path = "media/demo_photo_4.jpg"  # Replace with your actual image path
-caption = generate_detailed_caption(image_path)
-print(f"Generated Caption: {caption}")
+# image_path = "media/demo_photo_4.jpg"  # Replace with your actual image path
+# caption = generate_detailed_caption(image_path)
+# print(f"Generated Caption: {caption}")
