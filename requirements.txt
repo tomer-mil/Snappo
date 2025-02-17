@@ -1,0 +1,14 @@
+torch>=2.5.1
+torchvision>=0.20.1
+python-telegram-bot>=20.0
+Pillow>=9.0.0
+requests~=2.32.3
+telegram~=0.0.1
+matplotlib~=3.10.0
+numpy~=2.2.1
+transformers~=4.47.1
+opencv-python
+transformers
+Pillow
+sam2
+huggingface_hub
