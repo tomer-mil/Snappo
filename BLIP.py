@@ -11,10 +11,12 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
 # Function to generate a clothing-focused caption
-def generate_detailed_caption(photo_bytes):
+def generate_detailed_caption(photo_bytes, is_pil_image=False):
+    if not is_pil_image:
+        image = Image.open(photo_bytes).convert("RGB")
+    else:
+        image = photo_bytes
 
-    image = Image.open(photo_bytes).convert("RGB")
-    
     # Run BLIP in captioning mode (no user prompt)
     inputs = processor(images=image, return_tensors="pt").to(device)
 

@@ -47,14 +47,14 @@ def caption_image(image_data):
     except Exception as e:
         return json.dumps({"error": str(e)})
 
-def search_image(image_path):
+def search_image(image_path, is_pil_image=False):
     """
     Search for products based on an image using BLIP for caption generation
     and SerpApi for product search.
     """
     try:
         # Step 1: Generate caption using BLIP
-        caption = generate_detailed_caption(image_path)
+        caption = generate_detailed_caption(image_path, is_pil_image)
 
         # Step 2: Use caption as query for SerpApi
         search_results = search_product(query=caption, limit=5)

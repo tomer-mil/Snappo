@@ -5,7 +5,6 @@ Handles communication with SerpApi to perform Google Shopping queries.
 """
 
 import requests
-import os
 from PIL import Image
 import pytesseract
 from datetime import datetime
