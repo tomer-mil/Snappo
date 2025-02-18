@@ -8,6 +8,8 @@ import requests
 import os
 from PIL import Image
 import pytesseract
+from datetime import datetime
+import json
 
 # Replace with your actual SerpApi key
 SERPAPI_KEY = "970948c83db54825b85fb7365133297cd23184abd6d8e7d25693c816160a2db4"
@@ -66,6 +68,17 @@ def search_product(query, limit=3):
 
         # Parse the shopping results
         all_parsed = parse_shopping_results(results)
+        # Parse the shopping results
+        all_parsed = parse_shopping_results(results)
+
+        # Save results to a JSON file
+        try:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f'shopping_results_{timestamp}.json'
+            with open(filename, 'w', encoding='utf-8') as f:
+                json.dump(all_parsed, f, ensure_ascii=False, indent=2)
+        except Exception as e:
+            print(f"Error saving results to file: {e}")
 
         # Return only the first `limit` results
         return all_parsed[:limit]
