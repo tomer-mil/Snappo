@@ -14,38 +14,45 @@ class ClothesSegmorfer:
     processor: SegformerImageProcessor
 
     image: ImageFile
-    inputs: BatchFeature
+    inputs = None
 
 
     seg_map: torch.Tensor
     colored_mask: np.ndarray
 
     label_to_name = {
-        1: "upper_clothes",
-        2: "pants",
-        3: "dress",
-        4: "skirt",
-        8: "hat",
-        9: "gloves",
-        10: "socks",
-        12: "shoes"
+        1: "hat",
+        3: "sunglasses",
+        4: "upper-clothes",
+        5: "skirt",
+        6: "pants",
+        7: "dress",
+        8: "belt",
+        9: "l_shoe",
+        10: "r_shoe",
+        16: "bag",
+        17: "scarf"
     }
     color_map = {
-            0: [0, 0, 0],        # Background
-            1: [255, 0, 0],      # Upper-clothes
-            2: [0, 255, 0],      # Pants
-            3: [0, 0, 255],      # Dress
-            4: [255, 255, 0],    # Skirt
-            5: [255, 0, 255],    # Face
-            6: [0, 255, 255],    # Arms
-            7: [128, 0, 0],      # Legs
-            8: [0, 128, 0],      # Hat
-            9: [0, 0, 128],      # Gloves
-            10: [128, 128, 0],   # Socks
-            11: [128, 0, 128],   # Sunglasses
-            12: [0, 128, 128],   # Shoes
-            13: [64, 0, 0]       # Hair
-        }
+        0: [0, 0, 0],        # Background
+        1: [255, 0, 0],      # Hat
+        2: [0, 255, 0],      # Hair
+        3: [0, 0, 255],      # Sunglasses
+        4: [255, 255, 0],    # Upper-clothes
+        5: [255, 0, 255],    # Skirt
+        6: [0, 255, 255],    # Pants
+        7: [128, 0, 0],      # Dress
+        8: [0, 128, 0],      # Belt
+        9: [0, 0, 128],      # Left-Shoe
+        10: [128, 128, 0],   # Right-shoe
+        11: [128, 0, 128],   # Face
+        12: [0, 128, 128],   # Left-leg
+        13: [64, 0, 0],      # Right-leg
+        14: [0, 64, 0],      # Left-arm
+        15: [0, 0, 64],      # Right-arm
+        16: [64, 64, 0],     # Bag
+        17: [64, 0, 64]      # Scarf
+    }
 
 
     def __init__(self, image_bytes):
@@ -68,6 +75,8 @@ class ClothesSegmorfer:
 
 
     def get_segmentation_map(self):
+        self.process_image_inputs()
+
         with torch.no_grad():
             outputs = self.model(**self.inputs)
 
@@ -81,7 +90,7 @@ class ClothesSegmorfer:
         return upsampled_logits.argmax(dim=1)[0]
 
 
-    def extract_clothes(self):
+    def extract_clothes(self) -> list[dict]:
         """Extract individual clothing items from the segmented image."""
         detected_items = []
         img_array = np.array(self.image)
@@ -112,7 +121,7 @@ class ClothesSegmorfer:
         return detected_items
 
 
-    def get_clothes_from_image(self):
+    def get_clothes_from_image(self) -> list[dict]:
         # Get segmentation map
         self.seg_map = self.get_segmentation_map()
 
@@ -138,7 +147,7 @@ class ClothesSegmorfer:
 
     def create_mask_and_indices(self, label):
         """Create binary mask and get indices for a clothing item."""
-        mask = (self.seg_map == label)
+        mask = (self.seg_map == label).cpu().numpy()
         if not np.any(mask):
             return None, None, None
 
@@ -149,13 +158,13 @@ class ClothesSegmorfer:
         return mask, y_indices, x_indices
 
 
-    def get_bounding_box(self, indices, seg_map_shape, padding=5):
+    def get_bounding_box(self, indices, padding=5):
         """Calculate padded bounding box coordinates."""
         y_indices, x_indices = indices
         y_min = max(0, np.min(y_indices) - padding)
-        y_max = min(seg_map_shape[0], np.max(y_indices) + padding)
+        y_max = min(self.seg_map.shape[0], np.max(y_indices) + padding)
         x_min = max(0, np.min(x_indices) - padding)
-        x_max = min(seg_map_shape[1], np.max(x_indices) + padding)
+        x_max = min(self.seg_map.shape[1], np.max(x_indices) + padding)
         return y_min, y_max, x_min, x_max
 
 
@@ -175,7 +184,7 @@ class ClothesSegmorfer:
             return None, None
 
         # Get bounding box
-        y_min, y_max, x_min, x_max = self.get_bounding_box((y_indices, x_indices), self.seg_map.shape)
+        y_min, y_max, x_min, x_max = self.get_bounding_box((y_indices, x_indices))
 
         # Crop image and mask
         cropped_img = img_array[y_min:y_max + 1, x_min:x_max + 1].copy()
@@ -187,8 +196,40 @@ class ClothesSegmorfer:
     ##########################################
     ### Presenting Model's Results Methods ###
     ##########################################
-    def display_results_plot(self):
+    @staticmethod
+    def display_extracted_clothes_plot(clothes_list: list[dict]):
+        """Plot each extracted clothing item with its type label."""
+        num_items = len(clothes_list)
+        if num_items == 0:
+            print("No clothes detected in the image.")
+            return
+
+        # Calculate grid dimensions
+        cols = min(4, num_items)  # Maximum 4 items per row
+        rows = (num_items + cols - 1) // cols
+
+        fig, axes = plt.subplots(rows, cols, figsize=(4*cols, 4*rows))
+        if rows == 1 and cols == 1:
+            axes = np.array([axes])
+        axes = axes.flatten()
+
+        # Plot each clothing item
+        for idx, item in enumerate(clothes_list):
+            axes[idx].imshow(item["image"])
+            axes[idx].set_title(item["clothe_type"].replace('_', ' ').title())
+            axes[idx].axis('off')
+
+        # Turn off any remaining empty subplots
+        for idx in range(num_items, len(axes)):
+            axes[idx].axis('off')
+
+        plt.tight_layout()
+        plt.show()
+
+
+    def display_segmentation_plot(self):
         fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(15, 5))
+        colored_mask = self.create_colored_mask()
 
         # Original image
         ax1.imshow(self.image)
@@ -196,13 +237,13 @@ class ClothesSegmorfer:
         ax1.axis('off')
 
         # Segmentation mask
-        ax2.imshow(self.colored_mask)
+        ax2.imshow(colored_mask)
         ax2.set_title('Segmentation Mask')
         ax2.axis('off')
 
         # Blended result
         img_array = np.array(self.image)
-        blended = cv2.addWeighted(img_array, 0.7, self.colored_mask, 0.3, 0)
+        blended = cv2.addWeighted(img_array, 0.7, colored_mask, 0.3, 0)
         ax3.imshow(blended)
         ax3.set_title('Blended Result')
         ax3.axis('off')
@@ -211,10 +252,11 @@ class ClothesSegmorfer:
 
 
     def create_colored_mask(self):
-        self.colored_mask = np.zeros((self.seg_map.shape[0], self.seg_map.shape[1], 3), dtype=np.uint8)
+        colored_mask = np.zeros((self.seg_map.shape[0], self.seg_map.shape[1], 3), dtype=np.uint8)
         for label, color in self.color_map.items():
             mask = self.seg_map == label
-            self.colored_mask[mask] = color
+            colored_mask[mask] = color
+        return colored_mask
 
 
     def print_detected_items(self):
@@ -225,4 +267,9 @@ class ClothesSegmorfer:
                 percentage = (self.seg_map == label).sum() / (self.seg_map.shape[0] * self.seg_map.shape[1]) * 100
                 print(f"Class {label}: {percentage:.1f}% of image")
 
+    @staticmethod
+    def test_clothes_extraction(image_url="media/demo_photo_0.jpeg"):
+        segmorfer = ClothesSegmorfer(image_url)
+        clothes = segmorfer.get_clothes_from_image()
+        segmorfer.display_extracted_clothes_plot(clothes_list=clothes)
 
