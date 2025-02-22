@@ -3,6 +3,7 @@ from telegram.ext import Updater, Application, CommandHandler, MessageHandler, f
 from segmorfer_b2_clothes import get_clothes_from_image
 import io
 from image_processor import search_image
+from lykdat import search_lykdat
 import json
 
 user_products = {}
@@ -12,9 +13,14 @@ clothes_types = []
 current_clothe_index = 0
 current_clothe_type_index = 0
 
-# ZOE_BOT_API_KEY = "7908756148:AAFBaJpnQCLW4F5wuETs5NpdhfP6J0GByjo"
 BOT_API_KEY = "7596674915:AAF2VwAllFfBHTIIVRd2TYtU-GQ6pLiW04g"
-async def find_products_from_image(photo_bytes, is_pil_image=False):
+
+
+async def send_text_reply(update, text):
+    await update.message.reply_text(text)
+
+
+async def find_matching_products_from_user_image(user_clothe):
     # Load mock results from JSON file
     global user_products
     # try:
@@ -23,49 +29,54 @@ async def find_products_from_image(photo_bytes, is_pil_image=False):
     #         # return json.loads(f.read())
     # except FileNotFoundError:
     #     return json.dumps({"error": "Mock results file not found"})
-    return search_image(photo_bytes, is_pil_image)
+    # return json.loads(search_image(user_clothe, is_pil_image))
+    return search_lykdat(pil_image=user_clothe)
 
 
 
 # Handle photo messages
 async def handle_photo(update, context) -> None:
     global clothes_types
+
     if not update.message.photo:
-        await update.message.reply_text("Please send a valid photo.")
+        await send_text_reply(update=update, text="Please send a valid photo.")
         return
-    await update.message.reply_text("Snapping...")
+
+    await send_text_reply(update=update, text="Snapping...")
+
     # Get the photo
     photo = update.message.photo[-1]  # Get the best quality photo
     photo_file = await context.bot.get_file(photo.file_id)  # Await the coroutine
     photo_bytes = io.BytesIO(await photo_file.download_as_bytearray())  # Await download
 
-    clothes = get_clothes_from_image(photo_bytes)
-    user_products.clear()  # Clear previous results
-    # for clothe in clothes:
-    #     clothes_types.append(clothe['clothe_type'])
-    #     products = await find_products_from_image(clothe['clothe_type'])
-    #     user_products[clothe['clothe_type']] = products
+    extracted_clothes_list = get_clothes_from_image(photo_bytes)
 
-    await process_clothes(clothes)
+
+    await process_clothes(extracted_clothes_list)
 
     # products = await find_products_from_image(photo_bytes)
 
     await show_product(update, context)
     # await update.message.reply_text(products)
 
+
 async def process_clothes(clothes):
     global clothes_types, user_products
+
     for clothe in clothes:
+        # Add the clothe type to the list
         clothes_types.append(clothe['clothe_type'])
-        products = await find_products_from_image(clothe['image'], is_pil_image=True)
-        user_products[clothe['clothe_type']] = json.loads(products)
+
+        # Find matching products for the clothe in lykdat
+        matching_product = await find_matching_products_from_user_image(clothe['image'])
+
+        # Add the lykdat results to the user products
+        user_products[clothe['clothe_type']] = matching_product
+
 
 async def show_product(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    global current_clothe_index
-    global current_clothe_type
-    # if current_clothe_index >= len(user_products[current_clothe_type]) or current_clothe_type_index >= len(clothes_types):
-    #     await update.effective_chat.send_message("No more products to show!")
-    #     return
+    global current_clothe_index, current_clothe_type
+
     clothe_type = clothes_types[current_clothe_type_index]
     product = user_products[clothe_type][current_clothe_index]
 

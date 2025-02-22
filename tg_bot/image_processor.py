@@ -47,6 +47,9 @@ def caption_image(image_data):
     except Exception as e:
         return json.dumps({"error": str(e)})
 
+# def set_image_results_json(search_results: str, is_):
+
+
 def search_image(image_path, is_pil_image=False):
     """
     Search for products based on an image using BLIP for caption generation
