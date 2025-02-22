@@ -1,10 +1,9 @@
 from telegram import Update, Bot, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, Application, CommandHandler, MessageHandler, filters, CallbackQueryHandler, ContextTypes
-from segmorfer_b2_clothes import get_clothes_from_image
+from segmorfer_b2_clothes import ClothesSegmorfer
 import io
-from image_processor import search_image
 from lykdat import search_lykdat
-import json
+
 
 user_products = {}
 user_current_index = {}
@@ -13,6 +12,7 @@ clothes_types = []
 current_clothe_index = 0
 current_clothe_type_index = 0
 
+
 BOT_API_KEY = "7596674915:AAF2VwAllFfBHTIIVRd2TYtU-GQ6pLiW04g"
 
 
@@ -20,9 +20,14 @@ async def send_text_reply(update, text):
     await update.message.reply_text(text)
 
 
+async def run_segmorfer(image):
+    segmorfer = ClothesSegmorfer(image_bytes=image)
+    return segmorfer.get_clothes_from_image()
+
+
 async def find_matching_products_from_user_image(user_clothe):
-    # Load mock results from JSON file
     global user_products
+    # Load mock results from JSON file
     # try:
     #     with open('/Users/tomer.mildworth/Documents/University/Ecommerce/ecommerce/tg_bot/mock_results.json', 'r') as f:
     #         user_products = json.loads(f.read())
@@ -49,16 +54,11 @@ async def handle_photo(update, context) -> None:
     photo_file = await context.bot.get_file(photo.file_id)  # Await the coroutine
     photo_bytes = io.BytesIO(await photo_file.download_as_bytearray())  # Await download
 
-    extracted_clothes_list = get_clothes_from_image(photo_bytes)
-
+    extracted_clothes_list = await run_segmorfer(photo_bytes)
 
     await process_clothes(extracted_clothes_list)
 
-    # products = await find_products_from_image(photo_bytes)
-
     await show_product(update, context)
-    # await update.message.reply_text(products)
-
 
 async def process_clothes(clothes):
     global clothes_types, user_products
@@ -114,7 +114,7 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
 
 # Start command
 async def start(update, context) -> None:
-    await update.message.reply_text("Hey there, I'm Snappo!\nSend me a picture, and I'll find you the best match to purchase online 🛒")
+    await send_text_reply(update, text="Hey there, I'm Snappo!\nSend me a picture, and I'll find you the best match to purchase online 🛒")
 
 
 # Main function

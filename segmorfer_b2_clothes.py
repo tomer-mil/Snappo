@@ -271,5 +271,5 @@ class ClothesSegmorfer:
     def test_clothes_extraction(image_url="media/demo_photo_0.jpeg"):
         segmorfer = ClothesSegmorfer(image_url)
         clothes = segmorfer.get_clothes_from_image()
+        segmorfer.display_segmentation_plot()
         segmorfer.display_extracted_clothes_plot(clothes_list=clothes)
-
