@@ -1,0 +1,981 @@
+{
+  "data": {
+    "query_image": "https://storage.googleapis.com/projectameoba.appspot.com/d820594aacd42e3cf06949fabe9ebb5d3a87481af2949f5ab6a5ba9436b37006_image-2025-02-23-133923",
+    "result_groups": [
+      {
+        "average_score": 0.5184732169811322,
+        "detected_item": {
+          "area": 0.940088396090424,
+          "bounding_box": {
+            "bottom": 0.9811278,
+            "left": 0.012556343,
+            "right": 0.98427624,
+            "top": 0.013679877
+          },
+          "category": null,
+          "detection_confidence": 0.4780163,
+          "item_image": null,
+          "name": "Jacket"
+        },
+        "max_score": 0.5876116,
+        "rank_score": 0.5524068465681279,
+        "similar_products": [
+          {
+            "brand_name": "blanknyc",
+            "category": "clothing",
+            "currency": "USD",
+            "gender": "female",
+            "id": "revolve--cj--BLAN-WO377-XS--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/is4.revolveassets.com/1714319646198013/BLAN-WO377_V1.jpg"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/is4.revolveassets.com/1714319646198013/BLAN-WO377_V1.jpg",
+            "name": "BLANKNYC Faux Leather Jacket in Black. - size XS (also in S)",
+            "price": "168.00",
+            "reduced_price": "118.00",
+            "score": 0.5876116,
+            "sub_category": "outerwear",
+            "url": "https://www.kqzyfj.com/click-9272677-13237228?url=http%3A%2F%2Fwww.revolve.com%2Fcontent%2Fdeeplink%2Fwomens%2Fproduct%2FBLAN-WO377&cjsku=BLAN-WO377-XS",
+            "vendor": "revolve"
+          },
+          {
+            "brand_name": "boohoo",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "boohoo--GZZ77441-105-18--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images2.productserve.com/1709161632797393/es2.productserve.com"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images2.productserve.com/1709161632797393/es2.productserve.com",
+            "name": "Womens Padded Faux Leather Bomber Jacket - Black - 10, Black",
+            "price": "45.00",
+            "reduced_price": "22.00",
+            "score": 0.57957315,
+            "sub_category": "outerwear",
+            "url": "https://www.awin1.com/pclick.php?p=37191000416&a=620485&m=2319",
+            "vendor": "boohoo"
+          },
+          {
+            "brand_name": null,
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "nastygal--partnerize--GZZ77441-105-16--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/nastygal.prf.hn/1719640177131624/%2Fgzz77441_black_xl"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/nastygal.prf.hn/1719640177131624/%2Fgzz77441_black_xl",
+            "name": "Womens Padded Faux Leather Bomber Jacket - Black - 8",
+            "price": "45.00",
+            "reduced_price": "24.00",
+            "score": 0.57370305,
+            "sub_category": "outerwear",
+            "url": "https://nastygal.prf.hn/click/camref:1101lqzpw/creativeref:1011l84484/destination:https%3A%2F%2Fwww.nastygal.co.uk%2Fproduct%2Fboohoo-padded-faux-leather-bomber-jacket_gzz77441%3Fcolour%3Dblack%26size%3D8%26istCompanyId%3Dc708bfaa-fc55-4d30-adcb-d1c16ed8e393%26istFeedId%3D15b92c03-e573-4f27-96aa-73e7f01eb5aa%26istItemId%3Dmrxxrwqip%26istBid%3Dt",
+            "vendor": "nastygal"
+          },
+          {
+            "brand_name": "asos design",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "asos--138067956--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1735446589633245/207147104-1-black"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1735446589633245/207147104-1-black",
+            "name": "ASOS DESIGN collarless premium leather jacket in black",
+            "price": "150.00",
+            "reduced_price": null,
+            "score": 0.56678104,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.357186355424942766950117&type=15&murl=https%3A%2F%2Fwww.asos.com%2Fasos-design%2Fasos-design-collarless-premium-leather-jacket-in-black%2Fprd%2F207147104%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "boohoo",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "boohoo--GZZ98854-105-18--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images2.productserve.com/1727589226912319/es2.productserve.com"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images2.productserve.com/1727589226912319/es2.productserve.com",
+            "name": "Womens Petite Pu Seam Detail Oversized Bomber Jacket - Black - 10, Black",
+            "price": "47.00",
+            "reduced_price": "35.25",
+            "score": 0.56631196,
+            "sub_category": "outerwear",
+            "url": "https://www.awin1.com/pclick.php?p=38872252311&a=620485&m=2319",
+            "vendor": "boohoo"
+          },
+          {
+            "brand_name": "asos design",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "asos--133861017--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1724910177135543/205867932-1-black"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1724910177135543/205867932-1-black",
+            "name": "ASOS DESIGN faux leather glam 80's crop jacket in black-Red",
+            "price": "60.00",
+            "reduced_price": "33.00",
+            "score": 0.5634778,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.3571817910072276984777998&type=15&murl=https%3A%2F%2Fwww.asos.com%2Fasos-design%2Fasos-design-faux-leather-glam-80s-crop-jacket-in-black%2Fprd%2F205867932%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "asos design",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "asos--133861012--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1715322444368335/205867932-1-black"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1715322444368335/205867932-1-black",
+            "name": "ASOS DESIGN faux leather glam 80's crop jacket in black-Red",
+            "price": "60.00",
+            "reduced_price": "33.50",
+            "score": 0.5587842,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.357183491368207012842578&type=15&murl=https%3A%2F%2Fwww.asos.com%2Fasos-design%2Fasos-design-faux-leather-glam-80s-crop-jacket-in-black%2Fprd%2F205867932%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "asos design",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "asos--133861019--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1730217154691161/205867932-1-black"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1730217154691161/205867932-1-black",
+            "name": "ASOS DESIGN faux leather glam 80's crop jacket in black-Red",
+            "price": "60.00",
+            "reduced_price": "36.00",
+            "score": 0.5546594,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.357189257194124974395136&type=15&murl=https%3A%2F%2Fwww.asos.com%2Fasos-design%2Fasos-design-faux-leather-glam-80s-crop-jacket-in-black%2Fprd%2F205867932%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "john elliott",
+            "category": "clothing",
+            "currency": "USD",
+            "gender": "male",
+            "id": "shopstyle--990377267--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/1722249402759256/leather-jacket.jpg"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/1722249402759256/leather-jacket.jpg",
+            "name": "Leather Jacket",
+            "price": "1,998",
+            "reduced_price": "1,998",
+            "score": 0.55045223,
+            "sub_category": "outerwear",
+            "url": "https://www.shopstyle.com/interstitial/loadRetailerProductPage?id=990377267",
+            "vendor": "shopstyle"
+          },
+          {
+            "brand_name": "hugo red",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "asos--136286296--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1724911897549595/-1-openmiscellaneous"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1724911897549595/-1-openmiscellaneous",
+            "name": "HUGO Red pu zip bomber in black",
+            "price": "239.00",
+            "reduced_price": "108.00",
+            "score": 0.54750234,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.357184316682368758596304&type=15&murl=https%3A%2F%2Fwww.asos.com%2Fhugo-red%2Fhugo-red-pu-zip-bomber-in-black%2Fprd%2F206773410%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "nanushka",
+            "category": "clothing",
+            "currency": "USD",
+            "gender": "female",
+            "id": "shopstyle--1056942528--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/1722253844892781/ed-puffer-jacket.jpg"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/1722253844892781/ed-puffer-jacket.jpg",
+            "name": "Cropped Puffer Jacket",
+            "price": "724",
+            "reduced_price": "724",
+            "score": 0.54093975,
+            "sub_category": "outerwear",
+            "url": "https://www.shopstyle.com/g/women/nanushka/cropped-puffer-jacket",
+            "vendor": "shopstyle"
+          },
+          {
+            "brand_name": "prettylittlething",
+            "category": "clothing",
+            "currency": "USD",
+            "gender": "female",
+            "id": "prettylittlething--cng5925446--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images2.productserve.com/1711689037713804/es2.productserve.com"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images2.productserve.com/1711689037713804/es2.productserve.com",
+            "name": "Black Cropped Zip Detail Aviator Jacket",
+            "price": "115.00",
+            "reduced_price": "63.00",
+            "score": 0.53745556,
+            "sub_category": "outerwear",
+            "url": "https://www.awin1.com/pclick.php?p=36930253324&a=620485&m=7533",
+            "vendor": "prettylittlething"
+          },
+          {
+            "brand_name": "shein",
+            "category": "clothing",
+            "currency": "USD",
+            "gender": "female",
+            "id": "shein--cj--sz2310183193805555--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/img.ltwebstatic.com/1727568226753937/humbnail_220x293.jpg"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/img.ltwebstatic.com/1727568226753937/humbnail_220x293.jpg",
+            "name": "Women's Drawstring Hem Jacket",
+            "price": "27.59",
+            "reduced_price": "14.41",
+            "score": 0.53655547,
+            "sub_category": "outerwear",
+            "url": "https://www.kqzyfj.com/click-9272677-15212054?url=https%3A%2F%2Fus.shein.com%2FWomen-s-Drawstring-Hem-Jacket-p-25697668-cat-1776.html&cjsku=sz2310183193805555",
+            "vendor": "shein"
+          },
+          {
+            "brand_name": "asos design",
+            "category": "clothing",
+            "currency": "USD",
+            "gender": "male",
+            "id": "shopstyle--1069076037--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/1730231599210188/-jacket-in-black.jpg"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/1730231599210188/-jacket-in-black.jpg",
+            "name": "ASOS DESIGN faux leather oversized textured harrington jacket in black",
+            "price": "99.99",
+            "reduced_price": "99.99",
+            "score": 0.5365105,
+            "sub_category": "outerwear",
+            "url": "https://www.shopstyle.com/interstitial/loadRetailerProductPage?id=1069076037",
+            "vendor": "shopstyle"
+          },
+          {
+            "brand_name": "asos design",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "male",
+            "id": "asos--136233907--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1732852366274521/206760704-1-black"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1732852366274521/206760704-1-black",
+            "name": "ASOS DESIGN faux leather oversized textured harrington jacket in black",
+            "price": "70.00",
+            "reduced_price": null,
+            "score": 0.5343303,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.357184591438679589578468&type=15&murl=https%3A%2F%2Fwww.asos.com%2Fasos-design%2Fasos-design-faux-leather-oversized-textured-harrington-jacket-in-black%2Fprd%2F206760704%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "bershka",
+            "category": "clothing",
+            "currency": "USD",
+            "gender": "male",
+            "id": "shopstyle--1069695625--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/1730231605241511/-jacket-in-black.jpg"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/1730231605241511/-jacket-in-black.jpg",
+            "name": "Bershka faux leather washed bomber jacket in black",
+            "price": "89.90",
+            "reduced_price": "89.90",
+            "score": 0.5319019,
+            "sub_category": "outerwear",
+            "url": "https://www.shopstyle.com/g/men/bershka/faux-leather-washed-bomber-jacket-in-black",
+            "vendor": "shopstyle"
+          },
+          {
+            "brand_name": "asos design",
+            "category": "clothing",
+            "currency": "USD",
+            "gender": "male",
+            "id": "shopstyle--1015870560--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/1709241245873322/-jacket-in-black.jpg"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/1709241245873322/-jacket-in-black.jpg",
+            "name": "ASOS DESIGN oversized cropped faux leather harrington jacket in black",
+            "price": "79",
+            "reduced_price": "79",
+            "score": 0.52871364,
+            "sub_category": "outerwear",
+            "url": "https://www.shopstyle.com/interstitial/loadRetailerProductPage?id=1015870560",
+            "vendor": "shopstyle"
+          },
+          {
+            "brand_name": "asos petite",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "asos--134125755--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1732851681334834/206029034-1-black"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1732851681334834/206029034-1-black",
+            "name": "ASOS DESIGN Petite clean leather look bomber jacket in black",
+            "price": "55.00",
+            "reduced_price": null,
+            "score": 0.5279726,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.357184687924743733179488&type=15&murl=https%3A%2F%2Fwww.asos.com%2Fasos-petite%2Fasos-design-petite-clean-leather-look-bomber-jacket-in-black%2Fprd%2F206029034%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "barneys originals plus",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "asos--111042975--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1727611850612323/201260932-1-black"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1727611850612323/201260932-1-black",
+            "name": "Barney's Originals Plus Beppe leather jacket with ribbed detail-Black",
+            "price": "105.00",
+            "reduced_price": "58.00",
+            "score": 0.5255326,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.3571816478540971469209815&type=15&murl=https%3A%2F%2Fwww.asos.com%2Fbarneys-originals-plus%2Fbarneys-originals-plus-beppe-leather-jacket-with-ribbed-detail%2Fprd%2F201260932%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "boohoo",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "boohoo--GZZ87888-105-18--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images2.productserve.com/1719650226978339/es2.productserve.com"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images2.productserve.com/1719650226978339/es2.productserve.com",
+            "name": "Womens Faux Leather Cropped Collar Detail Jacket - Black - 10, Black",
+            "price": "35.00",
+            "reduced_price": "17.50",
+            "score": 0.5236128,
+            "sub_category": "outerwear",
+            "url": "https://www.awin1.com/pclick.php?p=38196990005&a=620485&m=2319",
+            "vendor": "boohoo"
+          },
+          {
+            "brand_name": "asos design",
+            "category": "clothing",
+            "currency": "USD",
+            "gender": "male",
+            "id": "shopstyle--1059046202--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/1735457297066981/-collar-in-black.jpg"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/1735457297066981/-collar-in-black.jpg",
+            "name": "ASOS DESIGN oversized faux leather harrington jacket with cord collar in black",
+            "price": "84.99",
+            "reduced_price": "84.99",
+            "score": 0.5232813,
+            "sub_category": "outerwear",
+            "url": "https://www.shopstyle.com/interstitial/loadRetailerProductPage?id=1059046202",
+            "vendor": "shopstyle"
+          },
+          {
+            "brand_name": "the couture club",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "male",
+            "id": "asos--132513348--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1706536193413134/205240565-1-black"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1706536193413134/205240565-1-black",
+            "name": "The Couture Club faux leather bomber jacket in black",
+            "price": "110.00",
+            "reduced_price": null,
+            "score": 0.51521474,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.3571811830498653074780324&type=15&murl=https%3A%2F%2Fwww.asos.com%2Fthe-couture-club%2Fthe-couture-club-faux-leather-bomber-jacket-in-black%2Fprd%2F205240565%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "boohoo",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "boohoo--GZZ96214-105-18--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images2.productserve.com/1724881215236647/es2.productserve.com"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images2.productserve.com/1724881215236647/es2.productserve.com",
+            "name": "Womens Padded Faux Leather Bomber Jacket - Black - 10, Black",
+            "price": "45.00",
+            "reduced_price": "33.75",
+            "score": 0.51371783,
+            "sub_category": "outerwear",
+            "url": "https://www.awin1.com/pclick.php?p=38597521913&a=620485&m=2319",
+            "vendor": "boohoo"
+          },
+          {
+            "brand_name": "topshop",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "asos--133775222--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1724910090056879/205819588-1-black"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1724910090056879/205819588-1-black",
+            "name": "Topshop faux leather bomber jacket in black",
+            "price": "65.00",
+            "reduced_price": null,
+            "score": 0.51191765,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.35718511637681109371152&type=15&murl=https%3A%2F%2Fwww.asos.com%2Ftopshop%2Ftopshop-faux-leather-bomber-jacket-in-black%2Fprd%2F205819588%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "allsaints",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "asos--136895478--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1724912130289667/206951471-1-black"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1724912130289667/206951471-1-black",
+            "name": "AllSaints Belle relaxed leather bomber jacket in black",
+            "price": "359.00",
+            "reduced_price": "251.00",
+            "score": 0.5096452,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.357182965597142955323812&type=15&murl=https%3A%2F%2Fwww.asos.com%2Fallsaints%2Fallsaints-belle-relaxed-leather-bomber-jacket-in-black%2Fprd%2F206951471%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "rains",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "asos--133534594--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/171170888162746/205682027-1-night"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/171170888162746/205682027-1-night",
+            "name": "Rains String waterproof loose crop jacket in shiny black",
+            "price": "105.00",
+            "reduced_price": "78.75",
+            "score": 0.50758713,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.3571816495847570305728340&type=15&murl=https%3A%2F%2Fwww.asos.com%2Frains%2Frains-string-waterproof-loose-crop-jacket-in-shiny-black%2Fprd%2F205682027%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "everything5pounds",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "everything5pounds--737790-478922-2124--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images2.productserve.com/1714345119439543/es2.productserve.com"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images2.productserve.com/1714345119439543/es2.productserve.com",
+            "name": "Faux Leather Bomber Jacket",
+            "price": "5.95",
+            "reduced_price": "5.95",
+            "score": 0.50693494,
+            "sub_category": "outerwear",
+            "url": "https://www.awin1.com/pclick.php?p=37559053315&a=620485&m=6497",
+            "vendor": "everything5pounds"
+          },
+          {
+            "brand_name": "the couture club",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "male",
+            "id": "asos--132513349--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1724909315988026/205240565-1-black"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1724909315988026/205240565-1-black",
+            "name": "The Couture Club faux leather bomber jacket in black",
+            "price": "110.00",
+            "reduced_price": null,
+            "score": 0.5067844,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.357181657345992349265867&type=15&murl=https%3A%2F%2Fwww.asos.com%2Fthe-couture-club%2Fthe-couture-club-faux-leather-bomber-jacket-in-black%2Fprd%2F205240565%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "asos design",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "male",
+            "id": "asos--136233885--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1732852366246561/206760618-1-black"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1732852366246561/206760618-1-black",
+            "name": "ASOS DESIGN faux leather oversized wadded harrington jacket in black",
+            "price": "65.00",
+            "reduced_price": "52.00",
+            "score": 0.5058715,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.3571816435319304155791507&type=15&murl=https%3A%2F%2Fwww.asos.com%2Fasos-design%2Fasos-design-faux-leather-oversized-wadded-harrington-jacket-in-black%2Fprd%2F206760618%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "shein",
+            "category": "clothing",
+            "currency": "SGD",
+            "gender": "male",
+            "id": "shein--cj--sm2407157113043213--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/img.ltwebstatic.com/1738073962627585/humbnail_220x293.jpg"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/img.ltwebstatic.com/1738073962627585/humbnail_220x293.jpg",
+            "name": "Men's PU Leather Short Zip-Up Jacket & Coat",
+            "price": "38.99",
+            "reduced_price": "38.99",
+            "score": 0.5052013,
+            "sub_category": "outerwear",
+            "url": "https://www.kqzyfj.com/click-9272677-16962444?url=https%3A%2F%2Fsg.shein.com%2FMen-s-PU-Leather-Short-Zip-Up-Jacket-Coat-p-41268483-cat-1981.html&cjsku=sm2407157113043213",
+            "vendor": "shein"
+          },
+          {
+            "brand_name": "asos design",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "asos--137085583--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1732852675717662/206999152-1-black"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1732852675717662/206999152-1-black",
+            "name": "ASOS DESIGN oversized vintage washed leather look jacket in black",
+            "price": "65.00",
+            "reduced_price": "55.25",
+            "score": 0.5049596,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.3571815931069057462958836&type=15&murl=https%3A%2F%2Fwww.asos.com%2Fasos-design%2Fasos-design-oversized-vintage-washed-leather-look-jacket-in-black%2Fprd%2F206999152%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "asos design",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "male",
+            "id": "asos--133115193--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1724909533836186/205484706-1-black"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1724909533836186/205484706-1-black",
+            "name": "ASOS DESIGN oversized cropped faux leather harrington jacket in black",
+            "price": "55.00",
+            "reduced_price": "38.50",
+            "score": 0.50395906,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.3571810792779167367842178&type=15&murl=https%3A%2F%2Fwww.asos.com%2Fasos-design%2Fasos-design-oversized-cropped-faux-leather-harrington-jacket-in-black%2Fprd%2F205484706%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "boohoo",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "boohoo--GZZ87886-105-18--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images2.productserve.com/1714336955927794/es2.productserve.com"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images2.productserve.com/1714336955927794/es2.productserve.com",
+            "name": "Womens Faux Leather Cropped Moto Detail Bomber Jacket - Black - 10, Black",
+            "price": "40.00",
+            "reduced_price": "14.00",
+            "score": 0.50300264,
+            "sub_category": "outerwear",
+            "url": "https://www.awin1.com/pclick.php?p=37537780661&a=620485&m=2319",
+            "vendor": "boohoo"
+          },
+          {
+            "brand_name": "alexander mcqueen",
+            "category": "clothing",
+            "currency": "USD",
+            "gender": "female",
+            "id": "shopstyle--1062729783--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/172492085102227/-jacket-in-black.jpg"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/172492085102227/-jacket-in-black.jpg",
+            "name": "Short Aviator Bomber Jacket In Black",
+            "price": "4,346",
+            "reduced_price": "4,346",
+            "score": 0.50256544,
+            "sub_category": "outerwear",
+            "url": "https://www.shopstyle.com/g/women/alexander-mcqueen/short-aviator-bomber-jacket-in-black",
+            "vendor": "shopstyle"
+          },
+          {
+            "brand_name": "asos design",
+            "category": "clothing",
+            "currency": "USD",
+            "gender": "male",
+            "id": "shopstyle--1066619749--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/1735457289243689/-jacket-in-black.jpg"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/1735457289243689/-jacket-in-black.jpg",
+            "name": "ASOS DESIGN faux leather oversized padded harrington jacket in black",
+            "price": "89.99",
+            "reduced_price": "89.99",
+            "score": 0.5022638,
+            "sub_category": "outerwear",
+            "url": "https://www.shopstyle.com/interstitial/loadRetailerProductPage?id=1066619749",
+            "vendor": "shopstyle"
+          },
+          {
+            "brand_name": "noisy may",
+            "category": "clothing",
+            "currency": "USD",
+            "gender": "female",
+            "id": "shopstyle--1010729522--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/1730231619523432/ther-moto-jacket.jpg"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/1730231619523432/ther-moto-jacket.jpg",
+            "name": "Neal Patent Faux Leather Moto Jacket",
+            "price": "129",
+            "reduced_price": "129",
+            "score": 0.50165737,
+            "sub_category": "outerwear",
+            "url": "https://www.shopstyle.com/g/women/noisy-may/neal-patent-faux-leather-moto-jacket",
+            "vendor": "shopstyle"
+          },
+          {
+            "brand_name": "poéselle",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "shein--cj--sz2407093001525354--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/img.ltwebstatic.com/1735401660506325/humbnail_220x293.jpg"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/img.ltwebstatic.com/1735401660506325/humbnail_220x293.jpg",
+            "name": "Drop Shoulder Short Bomber Jacket, PU Short Jacket, Autumn Women's Jacket, Winter Women's Jacket, Frenchies",
+            "price": "27.49",
+            "reduced_price": "19.49",
+            "score": 0.5009779,
+            "sub_category": "outerwear",
+            "url": "https://www.dpbolvw.net/click-9272677-16961751?url=https%3A%2F%2Fwww.shein.co.uk%2FDrop-Shoulder-Short-Bomber-Jacket-PU-Short-Jacket-Autumn-Women-s-Jacket-Winter-Women-s-Jacket-Frenchies-p-40798672-cat-1776.html&cjsku=sz2407093001525354",
+            "vendor": "shein"
+          },
+          {
+            "brand_name": "asos design",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "male",
+            "id": "asos--134655800--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1724910886478771/206226741-1-black"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1724910886478771/206226741-1-black",
+            "name": "ASOS DESIGN oversized faux leather harrington jacket with cord collar in black",
+            "price": "60.00",
+            "reduced_price": "21.00",
+            "score": 0.5008441,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.357188902499681891154404&type=15&murl=https%3A%2F%2Fwww.asos.com%2Fasos-design%2Fasos-design-oversized-faux-leather-harrington-jacket-with-cord-collar-in-black%2Fprd%2F206226741%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "the couture club",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "male",
+            "id": "asos--132513350--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1709233661291789/205240565-1-black"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1709233661291789/205240565-1-black",
+            "name": "The Couture Club faux leather bomber jacket in black",
+            "price": "110.00",
+            "reduced_price": "99.00",
+            "score": 0.5002251,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.35718533290917298978255&type=15&murl=https%3A%2F%2Fwww.asos.com%2Fthe-couture-club%2Fthe-couture-club-faux-leather-bomber-jacket-in-black%2Fprd%2F205240565%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "cotton:on",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "asos--136126155--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1724911831549211/206735969-1-black"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1724911831549211/206735969-1-black",
+            "name": "Cotton:On Aries faux leather bomber jacket in black",
+            "price": "65.00",
+            "reduced_price": null,
+            "score": 0.49803165,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.3571811590885932034732902&type=15&murl=https%3A%2F%2Fwww.asos.com%2Fcottonon%2Fcottonon-aries-faux-leather-bomber-jacket-in-black%2Fprd%2F206735969%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "asos design",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "male",
+            "id": "asos--134655797--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1722241499265092/206226741-1-black"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1722241499265092/206226741-1-black",
+            "name": "ASOS DESIGN oversized faux leather harrington jacket with cord collar in black",
+            "price": "60.00",
+            "reduced_price": "30.00",
+            "score": 0.49699992,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.3571815315043384775799717&type=15&murl=https%3A%2F%2Fwww.asos.com%2Fasos-design%2Fasos-design-oversized-faux-leather-harrington-jacket-with-cord-collar-in-black%2Fprd%2F206226741%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "shein",
+            "category": "clothing",
+            "currency": "AUD",
+            "gender": "female",
+            "id": "shein--cj--sz2309286939722371--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/img.ltwebstatic.com/1711639592278316/humbnail_220x293.jpg"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/img.ltwebstatic.com/1711639592278316/humbnail_220x293.jpg",
+            "name": "Womens Flip Pocket Jacket",
+            "price": "32.95",
+            "reduced_price": "32.95",
+            "score": 0.49699405,
+            "sub_category": "outerwear",
+            "url": "https://www.tkqlhce.com/click-9272677-15212074?url=https%3A%2F%2Fau.shein.com%2FWomen-s-Flip-Pocket-Jacket-p-25987565-cat-1776.html&cjsku=sz2309286939722371",
+            "vendor": "shein"
+          },
+          {
+            "brand_name": "boohoo",
+            "category": "clothing",
+            "currency": "EUR",
+            "gender": "female",
+            "id": "boohoo--HZZ00094-105-350--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images2.productserve.com/1727589221264024/es2.productserve.com"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images2.productserve.com/1727589221264024/es2.productserve.com",
+            "name": "Womens Plus Padded Faux Leather Bomber Jacket - Black - 22, Black",
+            "price": "75.00",
+            "reduced_price": "42.00",
+            "score": 0.4963002,
+            "sub_category": "outerwear",
+            "url": "https://www.awin1.com/pclick.php?p=38766807726&a=620485&m=2319",
+            "vendor": "boohoo"
+          },
+          {
+            "brand_name": "boohoo",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "boohoo--GZZ73743-105-16--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images2.productserve.com/1706473608880711/es2.productserve.com"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images2.productserve.com/1706473608880711/es2.productserve.com",
+            "name": "Womens Faux Leather Zip Detail Bomber Jacket - Black - 8, Black",
+            "price": "35.00",
+            "reduced_price": "13.00",
+            "score": 0.4942843,
+            "sub_category": "outerwear",
+            "url": "https://www.awin1.com/pclick.php?p=36480062069&a=620485&m=2319",
+            "vendor": "boohoo"
+          },
+          {
+            "brand_name": "topshop",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "asos--133172283--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1709234029570276/205497599-1-khaki"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1709234029570276/205497599-1-khaki",
+            "name": "Topshop spaghetti strap tube top in khaki-Green",
+            "price": "12.00",
+            "reduced_price": "5.50",
+            "score": 0.4937452,
+            "sub_category": "tops",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.3571810055648206857811079&type=15&murl=https%3A%2F%2Fwww.asos.com%2Ftopshop%2Ftopshop-spaghetti-strap-tube-top-in-khaki%2Fprd%2F205497599%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "shein",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "unisex",
+            "id": "shein--cj--sz2311039913172015--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/img.ltwebstatic.com/1711639598571761/humbnail_220x293.jpg"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/img.ltwebstatic.com/1711639598571761/humbnail_220x293.jpg",
+            "name": "Faux Leather Front Zip Jacket",
+            "price": "28.99",
+            "reduced_price": "11.22",
+            "score": 0.49045235,
+            "sub_category": "outerwear",
+            "url": "https://www.kqzyfj.com/click-9272677-15223173?url=https%3A%2F%2Fwww.shein.co.uk%2FFaux-Leather-Front-Zip-Jacket-p-29090749-cat-1776.html%3Fref%3Dcj%26affiliateID%3D%3CPID%3E-%3CCID%3E%26url_from%3Dcj.com%26utm_campaign%3Dcjprofeed240407_&cjsku=sz2311039913172015",
+            "vendor": "shein"
+          },
+          {
+            "brand_name": "asos tall",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "asos--132830722--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1709233869754286/205388582-1-black"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1709233869754286/205388582-1-black",
+            "name": "ASOS DESIGN Tall longline oversized faux leather biker jacket in black",
+            "price": "48.00",
+            "reduced_price": null,
+            "score": 0.4903595,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.3571817382340322666652839&type=15&murl=https%3A%2F%2Fwww.asos.com%2Fasos-tall%2Fasos-design-tall-longline-oversized-faux-leather-biker-jacket-in-black%2Fprd%2F205388582%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "allsaints",
+            "category": "clothing",
+            "currency": "USD",
+            "gender": "female",
+            "id": "shopstyle--1059534854--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/1730231974787199/r-leather-jacket.jpg"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/1730231974787199/r-leather-jacket.jpg",
+            "name": "Ryder Leather Jacket",
+            "price": "599",
+            "reduced_price": "599",
+            "score": 0.489726,
+            "sub_category": "outerwear",
+            "url": "https://www.shopstyle.com/g/women/allsaints/ryder-leather-jacket",
+            "vendor": "shopstyle"
+          },
+          {
+            "brand_name": "prettylittlething",
+            "category": "clothing",
+            "currency": "USD",
+            "gender": "female",
+            "id": "prettylittlething--cnk5434143768--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images2.productserve.com/1727605459028204/es2.productserve.com"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images2.productserve.com/1727605459028204/es2.productserve.com",
+            "name": "Tall Washed Black Long Leg Straight Leg Jeans",
+            "price": "80.00",
+            "reduced_price": "24.00",
+            "score": 0.4887974,
+            "sub_category": null,
+            "url": "https://www.awin1.com/pclick.php?p=38947414319&a=620485&m=7533",
+            "vendor": "prettylittlething"
+          },
+          {
+            "brand_name": "topshop",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "asos--133172282--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1724909563916819/205497599-1-khaki"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1724909563916819/205497599-1-khaki",
+            "name": "Topshop spaghetti strap tube top in khaki-Green",
+            "price": "12.00",
+            "reduced_price": "10.00",
+            "score": 0.48770615,
+            "sub_category": "tops",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.357184080994062732815336&type=15&murl=https%3A%2F%2Fwww.asos.com%2Ftopshop%2Ftopshop-spaghetti-strap-tube-top-in-khaki%2Fprd%2F205497599%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          },
+          {
+            "brand_name": "shein",
+            "category": "clothing",
+            "currency": "USD",
+            "gender": "female",
+            "id": "shein--cj--sz2401034946418227--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/img.ltwebstatic.com/1714317070787542/humbnail_220x293.jpg"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/img.ltwebstatic.com/1714317070787542/humbnail_220x293.jpg",
+            "name": "Oversized Cropped Boxy Bomber Jacket",
+            "price": "25.59",
+            "reduced_price": "27.69",
+            "score": 0.4868197,
+            "sub_category": "outerwear",
+            "url": "https://www.anrdoezrs.net/click-9272677-15212054?url=https%3A%2F%2Fus.shein.com%2FOversized-Cropped-Boxy-Bomber-Jacket-p-30422920-cat-1776.html%3Fref%3Dcj%26affiliateID%3D%3CPID%3E-%3CCID%3E%26url_from%3Dcj.com%26utm_campaign%3Dcjprofeed240527_&cjsku=sz2401034946418227",
+            "vendor": "shein"
+          },
+          {
+            "brand_name": "khaite",
+            "category": "clothing",
+            "currency": "USD",
+            "gender": "female",
+            "id": "shopstyle--1061761527--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/1724920820452092/kember-jacket.jpg"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/img.shopstyle-cdn.com/1724920820452092/kember-jacket.jpg",
+            "name": "'kember' Jacket",
+            "price": "4,779",
+            "reduced_price": "4,779",
+            "score": 0.48519757,
+            "sub_category": "outerwear",
+            "url": "https://www.shopstyle.com/g/women/khaite/kember-jacket",
+            "vendor": "shopstyle"
+          },
+          {
+            "brand_name": "asos design",
+            "category": "clothing",
+            "currency": "GBP",
+            "gender": "female",
+            "id": "asos--134221699--v2",
+            "images": [
+              "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1730217462402727/206085597-1-black"
+            ],
+            "matching_image": "https://storage.googleapis.com/amoeba-bucket-prod/images.asos-media.com/1730217462402727/206085597-1-black",
+            "name": "ASOS DESIGN leather look top collar jacket in black",
+            "price": "50.00",
+            "reduced_price": null,
+            "score": 0.48467362,
+            "sub_category": "outerwear",
+            "url": "https://click.linksynergy.com/link?id=yExw9ymt6gU&offerid=1100569.3571817734152122114319762&type=15&murl=https%3A%2F%2Fwww.asos.com%2Fasos-design%2Fasos-design-leather-look-top-collar-jacket-in-black%2Fprd%2F206085597%3FbrowseCountry%3DGB%26browseCurrency%3DGBP",
+            "vendor": "asos"
+          }
+        ]
+      }
+    ]
+  }
+}
