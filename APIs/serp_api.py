@@ -13,6 +13,7 @@ import json
 # Replace with your actual SerpApi key
 SERPAPI_KEY = "970948c83db54825b85fb7365133297cd23184abd6d8e7d25693c816160a2db4"
 
+
 def extract_text_from_image(image_path):
     """
     Extract text from an image using Tesseract OCR.
@@ -25,6 +26,7 @@ def extract_text_from_image(image_path):
         print(f"Error extracting text from image: {e}")
         return ""
 
+
 def parse_shopping_results(data):
     """
     Given a JSON response from SerpApi, extract relevant shopping information.
@@ -36,7 +38,7 @@ def parse_shopping_results(data):
             parsed_results.append({
                 "title": result.get("title"),
                 "price": result.get("price"),
-                "source": result.get("source"),    # store name
+                "source": result.get("source"),  # store name
                 "product_link": result.get("product_link"),
                 "rating": result.get("rating"),
                 "reviews": result.get("reviews"),
@@ -46,6 +48,7 @@ def parse_shopping_results(data):
     except Exception as e:
         print(f"Error parsing shopping results: {e}")
         return []
+
 
 def search_product(query, limit=3):
     """
@@ -59,7 +62,7 @@ def search_product(query, limit=3):
         "num": limit,
         "api_key": SERPAPI_KEY
     }
-    
+
     try:
         response = requests.get(endpoint, params=params)
         response.raise_for_status()

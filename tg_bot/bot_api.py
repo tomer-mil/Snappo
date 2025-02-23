@@ -1,9 +1,11 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackQueryHandler, ContextTypes
+
+from APIs.serp_api import search_product
 from segmorfer_b2_clothes import ClothesSegmorfer
 import io
 from APIs.lykdat_api import search_lykdat
-
+import re
 
 user_products = {}
 user_current_index = {}
@@ -11,7 +13,6 @@ current_clothe_type = ""
 clothes_types = []
 current_clothe_index = 0
 current_clothe_type_index = 0
-
 
 BOT_API_KEY = "7596674915:AAF2VwAllFfBHTIIVRd2TYtU-GQ6pLiW04g"
 
@@ -38,7 +39,6 @@ async def find_matching_products_from_user_image(user_clothe):
     return search_lykdat(pil_image=user_clothe)
 
 
-
 # Handle photo messages
 async def handle_photo(update, context) -> None:
     global clothes_types
@@ -60,6 +60,7 @@ async def handle_photo(update, context) -> None:
 
     await show_product(update, context)
 
+
 async def process_clothes(clothes):
     global clothes_types, user_products
 
@@ -74,11 +75,21 @@ async def process_clothes(clothes):
         user_products[clothe['clothe_type']] = matching_product
 
 
+# check if the image for the product is valid
+def replace_product_with_serp(url):
+    image_extensions = re.compile(r"\.(jpeg|jpg|png|gif|bmp|tiff|webp)$", re.IGNORECASE)
+
+    return bool(image_extensions.search(url))
+
+
 async def show_product(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     global current_clothe_index, current_clothe_type
 
     clothe_type = clothes_types[current_clothe_type_index]
     product = user_products[clothe_type][current_clothe_index]
+
+    if replace_product_with_serp(product['thumbnail']):
+        product = search_product(product['title'], limit=1)
 
     # Create keyboard with "Next" button and product link
     keyboard = [
@@ -95,6 +106,7 @@ async def show_product(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
         caption=f"Product {current_clothe_index + 1} of {len(user_products)}",
         reply_markup=reply_markup
     )
+
 
 async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     global current_clothe_index
@@ -114,12 +126,13 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
 
 # Start command
 async def start(update, context) -> None:
-    await send_text_reply(update, text="Hey there, I'm Snappo!\nSend me a picture, and I'll find you the best match to purchase online 🛒")
+    await send_text_reply(update,
+                          text="Hey there, I'm Snappo!\nSend me a picture, and I'll find you the best match to "
+                               "purchase online 🛒")
 
 
 # Main function
 def main():
-
     application = Application.builder().token(BOT_API_KEY).build()
 
     application.add_handler(CommandHandler("start", start))
