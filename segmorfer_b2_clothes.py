@@ -5,8 +5,6 @@ import cv2
 from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
-from transformers.image_processing_base import BatchFeature
-
 
 class ClothesSegmorfer:
 
@@ -15,7 +13,6 @@ class ClothesSegmorfer:
 
     image: ImageFile
     inputs = None
-
 
     seg_map: torch.Tensor
     colored_mask: np.ndarray
@@ -53,7 +50,6 @@ class ClothesSegmorfer:
         16: [64, 64, 0],     # Bag
         17: [64, 0, 64]      # Scarf
     }
-
 
     def __init__(self, image_bytes):
         self.processor, self.model = self.load_model()

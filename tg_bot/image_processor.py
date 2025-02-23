@@ -1,7 +1,7 @@
 from BLIP import generate_detailed_caption
-from serp_api import search_product
+from APIs.serp_api import search_product
 import json
-import types
+
 
 def ping():
     """

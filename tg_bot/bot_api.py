@@ -1,8 +1,8 @@
-from telegram import Update, Bot, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Updater, Application, CommandHandler, MessageHandler, filters, CallbackQueryHandler, ContextTypes
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackQueryHandler, ContextTypes
 from segmorfer_b2_clothes import ClothesSegmorfer
 import io
-from lykdat import search_lykdat
+from APIs.lykdat_api import search_lykdat
 
 
 user_products = {}

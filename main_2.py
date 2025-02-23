@@ -6,7 +6,7 @@ Entry point for the Flask application using BLIP for image captioning.
 
 from flask import Flask, request, jsonify
 from BLIP import generate_detailed_caption
-from serp_api import search_product
+from APIs.serp_api import search_product
 
 app = Flask(__name__)
 
