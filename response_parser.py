@@ -11,7 +11,8 @@ class ResponseParser:
             "price": response[ProductResponseKeys.PRICE.value.lykdat_key],
             "currency": response[ProductResponseKeys.CURRENCY.value.lykdat_key],
             "url": response[ProductResponseKeys.PRODUCT_URL.value.lykdat_key],
-            "image_url": response[ProductResponseKeys.IMAGE_URL.value.lykdat_key]
+            "image_url": response[ProductResponseKeys.IMAGE_URL.value.lykdat_key],
+            "name": response[ProductResponseKeys.NAME.value.lykdat_key]
         }
 
         return parsed_product

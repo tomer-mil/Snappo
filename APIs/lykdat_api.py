@@ -1,4 +1,5 @@
 import json
+import os
 from datetime import datetime
 from io import BytesIO
 import requests
@@ -36,9 +37,10 @@ def call_lykdat_global_search(image):
 
     return response.json()
 
-def call_lykdat_global_search_mock(image):
 
-    with open('APIs/mock_responses/lykdat_results_raw_20250223_155426.json', 'r') as f:
+def call_lykdat_global_search_mock(image):
+    ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+    with open(os.path.join(ROOT_DIR, 'mock_responses\\lykdat_results_raw_20250223_155426.json'), 'r') as f:
         return json.load(f)
 
 

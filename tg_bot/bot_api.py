@@ -7,6 +7,8 @@ import io
 from APIs.lykdat_api import search_lykdat
 import re
 
+from tg_bot.lykdat_no_image_fallback import replace_product_with_serp
+
 user_products = {}
 user_current_index = {}
 current_clothe_type = ""
@@ -75,21 +77,14 @@ async def process_clothes(clothes):
         user_products[clothe['clothe_type']] = matching_product
 
 
-# check if the image for the product is valid
-def replace_product_with_serp(url):
-    image_extensions = re.compile(r"\.(jpeg|jpg|png|gif|bmp|tiff|webp)$", re.IGNORECASE)
-
-    return bool(image_extensions.search(url))
-
-
 async def show_product(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     global current_clothe_index, current_clothe_type
 
     clothe_type = clothes_types[current_clothe_type_index]
     product = user_products[clothe_type][current_clothe_index]
 
-    if replace_product_with_serp(product['thumbnail']):
-        product = search_product(product['title'], limit=1)
+    # replace the product with serp search if product image is not valid
+    product = replace_product_with_serp(product)
 
     # Create keyboard with "Next" button and product link
     keyboard = [

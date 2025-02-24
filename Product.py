@@ -21,6 +21,7 @@ class Product:
 		self.image_url = parsed_response.get("image_url", "")
 		self.currency = parsed_response.get("currency", "")
 		self.brand = parsed_response.get("brand", "")
+		self.title = parsed_response.get("name", "")
 
 		# match source:
 		# 	# TODO: Change attribute `set` to match the structure in `response_parser`
@@ -52,7 +53,8 @@ class Product:
 			"url": self.url,
 			"image_url": self.image_url,
 			"brand": self.brand,
-			"source_api": self.source_api
+			"source_api": self.source_api,
+			"title": self.title
 		}
 
 	def to_json(self):
