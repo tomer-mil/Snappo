@@ -15,6 +15,7 @@ from telegram.ext import (
 
 from segmorfer_b2_clothes import ClothesSegmorfer
 import Messages
+from tg_bot.fallback_for_lykdat_no_image import replace_product_with_serp
 
 # initialize logging for tracking the bot activity
 logging.basicConfig(
@@ -202,6 +203,8 @@ async def show_product(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_data["current_product_index"] = current_index
 
     product = products[current_index]
+    # replace the product with serp search if product image is not valid
+    product = replace_product_with_serp(product)
     product_img = product["image_url"]
     product_name = product["name"]
     product_price = product["price"]
