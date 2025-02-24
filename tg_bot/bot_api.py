@@ -14,6 +14,7 @@ from telegram.ext import (
 )
 
 from segmorfer_b2_clothes import ClothesSegmorfer
+import Messages
 
 # initialize logging for tracking the bot activity
 logging.basicConfig(
@@ -21,7 +22,7 @@ logging.basicConfig(
     level=logging.INFO
 )
 
-BOT_API_KEY = "7926543787:AAEItPsl47bDrLs_uCCMK0zhjktl8MjcYwg"
+BOT_API_KEY = "7596674915:AAF2VwAllFfBHTIIVRd2TYtU-GQ6pLiW04g"
 tomer_and_zoe = False
 
 # === STATES ===
@@ -87,8 +88,7 @@ async def welcome_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if 'welcomed' not in user_sessions.get(chat_id, {}):
         user_sessions.setdefault(chat_id, {})['welcomed'] = True
         await update.message.reply_text(
-            "👋 Hello and welcome to Snappo Bot! 🎉\n\n"
-            "Send me a photo of your outfit, and I'll help you find similar products! 🛍️📸"
+            Messages.WELCOME_MESSAGE
         )
 
     # Move to waiting for photo
@@ -104,7 +104,7 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_sessions.setdefault(chat_id, {})
 
     # Acknowledge receipt
-    await update.message.reply_text("Such a nice outfit!👗\n\nLet me process the photo... 📸")
+    await update.message.reply_text(Messages.PHOTO_PROCESSING_MESSAGE)
 
     try:
         # Download photo as bytes (in memory)
@@ -116,10 +116,7 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         if not clothes:
             # No items found
-            await update.message.reply_text(
-                "Something went wrong. 😞\nI couldn't detect clothing in that photo. "
-                "Please try again with another photo. 📸"
-            )
+            await update.message.reply_text(Messages.NO_ITEMS_FOUND_ERROR_MESSAGE)
             return WAITING_PHOTO
 
         # Store detected clothing items in user session
@@ -133,18 +130,15 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
         await update.message.reply_text(
-            "👗 I detected these clothing items in the photo. \n\nWhich one do you want to search for? 🛍️",
+            Messages.DETECTED_CLOTHES_MESSAGE,
             reply_markup=reply_markup
         )
         return WAITING_ITEM_SELECTION
 
     except Exception as e:
         logging.error(f"Error processing photo: {e}")
-        await update.message.reply_text(
-            "Something went wrong. 😞\nPlease try again with another photo. 📸"
-        )
+        await update.message.reply_text(Messages.GENERAL_ERROR_MESSAGE)
         return WAITING_PHOTO
-
 
 
 async def item_selection_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -164,9 +158,7 @@ async def item_selection_callback(update: Update, context: ContextTypes.DEFAULT_
         user_data["chosen_item"] = chosen_item
 
         # Let user know we are searching
-        await query.message.reply_text(
-            "🎉 What a great choice! 🛍️\n\nGive me a few seconds to find a similar product for you to purchase! 🔍"
-        )
+        await query.message.reply_text(Messages.CLOTHE_SELECTION_MESSAGE)
 
         # Search for products
         products = search_clothing(chosen_item)
@@ -178,7 +170,7 @@ async def item_selection_callback(update: Update, context: ContextTypes.DEFAULT_
 
     else:
         # Shouldn't happen if coded properly
-        await query.message.reply_text("❌ Invalid selection, please try again. ❌")
+        await query.message.reply_text(Messages.INVALID_SELECTION_ERROR_MESSAGE)
         return WAITING_ITEM_SELECTION
 
 
@@ -203,10 +195,8 @@ async def show_product(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not products:
         # Edge case, no product found
         if query:
-            await query.message.reply_text(
-                "😞 Sorry, I couldn't find any products for that item. "
-                "Please send a new photo and I'll try again! 📸"
-            )
+            await query.message.reply_text(Messages.NO_PRODUCTS_FOUND_MESSAGE)
+
         return WAITING_PHOTO
 
     # Keep index in range
@@ -231,14 +221,14 @@ async def show_product(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Buttons
     keyboard = [
         [
-            InlineKeyboardButton("Next product ➡️", callback_data="NEXT_PRODUCT"),
-            InlineKeyboardButton("Search another item 🔄", callback_data="SEARCH_ANOTHER"),
+            InlineKeyboardButton(Messages.NEXT_PRODUCT_BUTTON_TEXT, callback_data="NEXT_PRODUCT"),
+            InlineKeyboardButton(Messages.SEARCH_ANOTHER_ITEM_BUTTON_TEXT, callback_data="SEARCH_ANOTHER"),
         ],
         [
-            InlineKeyboardButton("That's what I was looking for! 🎉", callback_data="DONE"),
+            InlineKeyboardButton(Messages.FOUND_ITEM_BUTTON_TEXT, callback_data="DONE"),
         ],
         [
-              InlineKeyboardButton("Never mind, let me upload a new photo 📸", callback_data="UPLOAD_NEW"),
+              InlineKeyboardButton(Messages.NEW_UPLOAD_RESPONSE_MESSAGE, callback_data="UPLOAD_NEW"),
         ]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -308,25 +298,22 @@ async def product_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     elif query.data == "DONE":
         # Reset flow
-        await query.message.reply_text(
-            "🎉 Awesome! I'm glad I could help! 😊\n\n"
-            "Feel free to send me another picture anytime to search for more items. 📸🛍️"
-        )
+        await query.message.reply_text(Messages.FOUND_ITEM_RESPONSE_MESSAGE)
+
         # Clear session or partially reset
         user_sessions[chat_id]["current_product_index"] = 0
         return WAITING_PHOTO
 
     elif query.data == "UPLOAD_NEW":
     # Reset flow and ask the user to send a new photo
-        await query.message.reply_text(
-            "No worries! 😊\nSend me a new photo whenever you're ready. 📸"
-        )
+        await query.message.reply_text(Messages.NEW_UPLOAD_RESPONSE_MESSAGE)
+
         # Clear session or partially reset
         user_sessions[chat_id]["current_product_index"] = 0
         return WAITING_PHOTO
 
     else:
-        await query.message.reply_text("Unknown option.")
+        await query.message.reply_text("Unknown option")
         return SHOWING_PRODUCT
 
 
