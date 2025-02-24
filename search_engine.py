@@ -9,10 +9,12 @@ class SearchEngine:
 
     segmorfer: ClothesSegmorfer
     clothe_types: list[str]
-    detected_clothes: list[dict]
+    detected_clothes: dict
 
     def __init__(self):
         self.segmorfer = ClothesSegmorfer()
+        self.clothe_types = []
+        self.detected_clothes = {}
 
     @staticmethod
     def is_valid_image_url(url: str):
@@ -28,9 +30,10 @@ class SearchEngine:
             clothe_types.append(clothe_type)
         return clothe_types
 
-    def search_product(self, clothe_image: Image) -> list[Product]:
+    def search_product_by_type(self, clothe_type: str) -> list[Product]:
         """Search for similar products using the extracted clothing image."""
         processed_results = []
+        clothe_image = self.detected_clothes[clothe_type]
 
         # First attempt with Lykdat API
         lykdat_results = search_lykdat(image=clothe_image)
@@ -51,6 +54,6 @@ class SearchEngine:
 
     def extract_clothes_from_image(self, image: Image):
         self.detected_clothes = self.segmorfer.get_clothes_from_image(image=image)
-        self.clothe_types = self.extract_clothe_types(self.detected_clothes)
+        self.clothe_types = list(self.detected_clothes.keys())
 
 

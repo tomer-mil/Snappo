@@ -72,13 +72,13 @@ def search_product(query, limit=3):
         all_parsed = parse_shopping_results(results)
 
         # Save results to a JSON file
-        try:
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            filename = f'shopping_results_{timestamp}.json'
-            with open(filename, 'w', encoding='utf-8') as f:
-                json.dump(all_parsed, f, ensure_ascii=False, indent=2)
-        except Exception as e:
-            print(f"Error saving results to file: {e}")
+        # try:
+        #     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        #     filename = f'shopping_results_{timestamp}.json'
+        #     with open(filename, 'w', encoding='utf-8') as f:
+        #         json.dump(all_parsed, f, ensure_ascii=False, indent=2)
+        # except Exception as e:
+        #     print(f"Error saving results to file: {e}")
 
         # Return only the first `limit` results
         return all_parsed[:limit]

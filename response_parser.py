@@ -23,7 +23,7 @@ class ResponseParser:
             "name": response[ProductResponseKeys.NAME.value.serpapi_key],
             "brand": response[ProductResponseKeys.BRAND.value.serpapi_key],
             "price": response[ProductResponseKeys.PRICE.value.serpapi_key],
-            "currency": response.get("alternative_price", {}).get("currency"),  # Nested path
+            "currency": response.get("alternative_price", {}).get("currency")[:1],  # Nested path
             "url": response[ProductResponseKeys.PRODUCT_URL.value.serpapi_key],
             "image_url": response[ProductResponseKeys.IMAGE_URL.value.serpapi_key]
         }

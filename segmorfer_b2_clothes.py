@@ -1,3 +1,5 @@
+import io
+
 import torch
 from PIL.ImageFile import ImageFile
 from transformers import SegformerImageProcessor, SegformerForSemanticSegmentation
@@ -11,7 +13,7 @@ class ClothesSegmorfer:
     model: SegformerForSemanticSegmentation
     processor: SegformerImageProcessor
 
-    image: ImageFile
+    image = None
     inputs = None
 
     seg_map: torch.Tensor
@@ -85,9 +87,10 @@ class ClothesSegmorfer:
         return upsampled_logits.argmax(dim=1)[0]
 
 
-    def extract_clothes(self) -> list[dict]:
+    def extract_clothes(self) -> dict:
         """Extract individual clothing items from the segmented image."""
-        detected_items = []
+        # detected_items = []
+        detected_items = {}
         img_array = np.array(self.image)
         unique_labels = np.unique(self.seg_map.cpu().numpy())
 
@@ -108,19 +111,21 @@ class ClothesSegmorfer:
             pil_image = Image.fromarray(rgba)
             background.paste(pil_image, (0, 0), pil_image)
 
-            detected_items.append({
-                "clothe_type": self.label_to_name[label],
-                "image": background
-            })
+            # detected_items.append({
+            #     "clothe_type": self.label_to_name[label],
+            #     "image": background
+            # })
+
+            detected_items[self.label_to_name[label]] = background
 
         return detected_items
 
 
-    def get_clothes_from_image(self, image) -> list[dict]:
+    def get_clothes_from_image(self, image) -> dict:
         if self.image:
             self.image.close()
-        else:
-            self.image = Image.open(image)
+
+        self.image = Image.open(io.BytesIO(image))
 
         # Get segmentation map
         self.seg_map = self.get_segmentation_map()

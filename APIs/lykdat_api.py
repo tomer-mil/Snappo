@@ -71,7 +71,7 @@ def search_lykdat(image: Image):
 
     # TODO: Don't forget to change back to original call! lykdat_response = call_lykdat_global_search(image=img_byte_arr)
 
-    lykdat_response = call_lykdat_global_search_mock(image=img_byte_arr)
+    lykdat_response = call_lykdat_global_search(image=img_byte_arr)
     parsed_response = parse_lykdat_response(lykdat_response)
 
     json_response = [product.to_json() for product in parsed_response]

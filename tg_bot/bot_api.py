@@ -1,4 +1,6 @@
 import logging
+from typing import Any
+
 from telegram import (
     Update, 
     InlineKeyboardButton, 
@@ -15,6 +17,7 @@ from telegram.ext import (
 
 from segmorfer_b2_clothes import ClothesSegmorfer
 import Messages
+from search_engine import SearchEngine
 from tg_bot.fallback_for_lykdat_no_image import replace_product_with_serp
 
 # initialize logging for tracking the bot activity
@@ -34,48 +37,29 @@ SHOWING_PRODUCT = 2
 # In-memory storage for user data (per chat)
 user_sessions = {}
 
-async def run_segmorfer(image) -> list:
-    if tomer_and_zoe:
-        segmorfer = ClothesSegmorfer()
-        return segmorfer.get_clothes_from_image(image=image)
+async def extract_clothes_from_user_image(update, chat_id, image) -> Any:
+    user_sessions[chat_id]["search_engine"].extract_clothes_from_image(image)
+    clothe_types = user_sessions[chat_id]["search_engine"].clothe_types
 
-    return ["hat", "upper-clothes", "pants"]  # Dummy data
+    if not clothe_types:
+        # No items found
+        await update.message.reply_text(Messages.NO_ITEMS_FOUND_ERROR_MESSAGE)
+        return WAITING_PHOTO
 
+    # Store detected clothing items in user session
+    user_sessions[chat_id]["clothe_types"] = clothe_types
+    return WAITING_ITEM_SELECTION
 
 # === PLACEHOLDERS FOR TOMER & ZOE FUNCTIONS ===
 # the function for the searching of the clothing item (include fallbacks)
 # get as arg the clothing type
 # replcace with the new 'process_clothes' function
-def search_clothing(clothing_type):
+def search_matching_products(chat_id, clothing_type):
     """
-    Dummy search function:
     Returns a list of product dicts, each with keys: 'image_url', 'name', 'price', 'link'
     """
-    # TODO: Replace with your Lykdat or custom API call
-    mock_products = [
-        {
-            "image_url": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRoWU5J_ZAcVUnFMLPvuRm1dPbMD6bb8dedFw01WI-qhP8fqvgjrrrbqCPGoRrU2R7DCRllsrrLgBkIKCmZVD8p9li0R6RMRO1BxKseMHU84GDtWYy9Pl1tCYD3dg18f2OC9qFq5p9IBKM&usqp=CAc",
-            "name": f"Sample {clothing_type} #1",
-            "price": "40",
-            "currency": "USD",
-            "link": "https://example.com/product1"
-        },
-        {
-            "image_url": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRoWU5J_ZAcVUnFMLPvuRm1dPbMD6bb8dedFw01WI-qhP8fqvgjrrrbqCPGoRrU2R7DCRllsrrLgBkIKCmZVD8p9li0R6RMRO1BxKseMHU84GDtWYy9Pl1tCYD3dg18f2OC9qFq5p9IBKM&usqp=CAc",
-            "name": f"Sample {clothing_type} #2",
-            "price": "50",
-            "currency": "USD",
-            "link": "https://example.com/product2"
-        },
-        {
-            "image_url": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRoWU5J_ZAcVUnFMLPvuRm1dPbMD6bb8dedFw01WI-qhP8fqvgjrrrbqCPGoRrU2R7DCRllsrrLgBkIKCmZVD8p9li0R6RMRO1BxKseMHU84GDtWYy9Pl1tCYD3dg18f2OC9qFq5p9IBKM&usqp=CAc",
-            "name": f"Sample {clothing_type} #3",
-            "price": "60",
-            "currency": "USD",
-            "link": "https://example.com/product3"
-        }
-    ]
-    return mock_products
+    products = user_sessions[chat_id]["search_engine"].search_product_by_type(clothing_type)
+    return products
 
 # === HANDLERS ===
 
@@ -94,13 +78,22 @@ async def welcome_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     return WAITING_PHOTO
 
 
+async def set_user_session_per_chat_id(chat_id: int):
+    user_sessions.setdefault(chat_id, {})
+    user_sessions[chat_id]["search_engine"] = SearchEngine()
+    user_sessions[chat_id]["products"] = {}  # Will store matching products
+    clothe_types = user_sessions[chat_id]["search_engine"].clothe_types
+
+
 async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """
     Called when the user sends a photo.
     Processes the image, extracts clothing items, and asks the user to choose one.
     """
     chat_id = update.effective_chat.id
-    user_sessions.setdefault(chat_id, {})
+
+    # Set session's SearchEngine and products dict
+    await set_user_session_per_chat_id(chat_id=chat_id)
 
     # Acknowledge receipt
     await update.message.reply_text(Messages.PHOTO_PROCESSING_MESSAGE)
@@ -111,22 +104,20 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         image_bytes = await photo_file.download_as_bytearray()
 
         # Run Segmorfer with image bytes
-        clothes = await run_segmorfer(image_bytes)  # Replacing segment_clothes()
+        # clothes = await extract_clothes_from_user_image(update=update,
+        #                                                 chat_id=chat_id,
+        #                                                 image=image_bytes)  # Replacing segment_clothes()
 
-        if not clothes:
-            # No items found
-            await update.message.reply_text(Messages.NO_ITEMS_FOUND_ERROR_MESSAGE)
-            return WAITING_PHOTO
-
-        # Store detected clothing items in user session
-        user_sessions[chat_id]["clothes"] = clothes
-        user_sessions[chat_id]["products"] = {}  # Will store matching products
+        await extract_clothes_from_user_image(update=update,
+                                              chat_id=chat_id,
+                                              image=image_bytes)  # Replacing segment_clothes()
 
         # Ask user which clothing item to search for
         keyboard = [
-            [InlineKeyboardButton(item, callback_data=f"ITEM_{item}")]
-            for item in clothes
+            [InlineKeyboardButton(clothe_type, callback_data=f"ITEM_{clothe_type}")]
+            for clothe_type in user_sessions[chat_id]["clothe_types"]
         ]
+
         reply_markup = InlineKeyboardMarkup(keyboard)
         await update.message.reply_text(
             Messages.DETECTED_CLOTHES_MESSAGE,
@@ -153,15 +144,17 @@ async def item_selection_callback(update: Update, context: ContextTypes.DEFAULT_
 
     # Parse clothing item
     if query.data.startswith("ITEM_"):
-        chosen_item = query.data.replace("ITEM_", "")
-        user_data["chosen_item"] = chosen_item
+        chosen_clothe_type = query.data.replace("ITEM_", "")
+        user_data["chosen_clothe_type"] = chosen_clothe_type
 
         # Let user know we are searching
         await query.message.reply_text(Messages.CLOTHE_SELECTION_MESSAGE)
 
         # Search for products
-        products = search_clothing(chosen_item)
-        user_data["products"][chosen_item] = products
+        products = search_matching_products(chat_id=chat_id,
+                                            clothing_type=chosen_clothe_type)
+
+        user_data["products"][chosen_clothe_type] = products
         user_data["current_product_index"] = 0
 
         # Show the first product
@@ -187,8 +180,8 @@ async def show_product(update: Update, context: ContextTypes.DEFAULT_TYPE):
         query = None
 
     user_data = user_sessions.get(chat_id, {})
-    chosen_item = user_data.get("chosen_item")
-    products = user_data.get("products", {}).get(chosen_item, [])
+    chosen_clothe_type = user_data.get("chosen_clothe_type")
+    products = user_data.get("products", {}).get(chosen_clothe_type, [])
     current_index = user_data.get("current_product_index", 0)
 
     if not products:
@@ -203,19 +196,12 @@ async def show_product(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_data["current_product_index"] = current_index
 
     product = products[current_index]
-    # replace the product with serp search if product image is not valid
-    product = replace_product_with_serp(product)
-    product_img = product["image_url"]
-    product_name = product["name"]
-    product_price = product["price"]
-    product_currency = product["currency"]
-    product_link = product["link"]
 
     # Build the reply text
     text_msg = (
-        f"👗 **{product_name}**\n\n"
-        f"💲 **Price:** {product_price} {product_currency}\n\n"
-        f"[🔗 **Purchase Link**]({product_link})\n\n"
+        f"👗 **{product.name}**\n\n"
+        f"💲 **Price:** {product.price} {product.currency}\n\n"
+        f"[🔗 **Purchase Link**]({product.url})\n\n"
         f"🛍️ Happy Shopping! 🎉"
     )
 
@@ -229,7 +215,7 @@ async def show_product(update: Update, context: ContextTypes.DEFAULT_TYPE):
             InlineKeyboardButton(Messages.FOUND_ITEM_BUTTON_TEXT, callback_data="DONE"),
         ],
         [
-              InlineKeyboardButton(Messages.NEW_UPLOAD_RESPONSE_MESSAGE, callback_data="UPLOAD_NEW"),
+              InlineKeyboardButton(Messages.NEW_UPLOAD_BUTTON_TEXT, callback_data="UPLOAD_NEW"),
         ]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -244,7 +230,7 @@ async def show_product(update: Update, context: ContextTypes.DEFAULT_TYPE):
         # Send a new message with product photo
         await context.bot.send_photo(
             chat_id=chat_id,
-            photo=product_img,
+            photo=product.image_url,
             caption=text_msg,
             parse_mode="Markdown",
             reply_markup=reply_markup
@@ -253,7 +239,7 @@ async def show_product(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         # If not a callback, just send a new message
         await update.message.reply_photo(
-            photo=product_img,
+            photo=product.image_url,
             caption=text_msg,
             parse_mode="Markdown",
             reply_markup=reply_markup
@@ -278,7 +264,7 @@ async def product_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     elif query.data == "SEARCH_ANOTHER":
         # Present the user with the clothing items again
-        clothes = user_data.get("clothes", [])
+        clothes = user_data.get("clothe_types", [])
         if not clothes:
             await query.message.reply_text(
                 "No other items found. Please send a new photo."
@@ -287,8 +273,8 @@ async def product_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         # Show clothing options again
         keyboard = [
-            [InlineKeyboardButton(item, callback_data=f"ITEM_{item}")] 
-            for item in clothes
+            [InlineKeyboardButton(clothe_type, callback_data=f"ITEM_{clothe_type}")]
+            for clothe_type in user_sessions[chat_id]["clothe_types"]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
         await query.message.reply_text(
@@ -320,6 +306,7 @@ async def product_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def main():
     application = Application.builder().token(BOT_API_KEY).build()
+    application.bot_data["search_engine"] = SearchEngine()
 
     # Conversation handler
     conv_handler = ConversationHandler(
