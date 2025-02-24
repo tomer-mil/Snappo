@@ -26,3 +26,7 @@ class ProductResponseKeys(Enum):
         lykdat_key="matching_image",
         serpapi_key="thumbnail"
     )
+    NAME = ResponseMapping(
+        lykdat_key="name",
+        serpapi_key="title"
+    )

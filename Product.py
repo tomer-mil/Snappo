@@ -5,6 +5,7 @@ from response_enum import ProductResponseKeys as PRK
 
 class Product:
 
+	name: str
 	price: float
 	currency: str
 	url: str
@@ -21,32 +22,14 @@ class Product:
 		self.image_url = parsed_response.get("image_url", "")
 		self.currency = parsed_response.get("currency", "")
 		self.brand = parsed_response.get("brand", "")
-
-		# match source:
-		# 	# TODO: Change attribute `set` to match the structure in `response_parser`
-		# 	case "lykdat":
-		# 		parsed_response = ResponseParser.parse_lykdat_product(response)
-		# 		self.price = parsed_response.get(PRK.PRICE.value.lykdat_key)
-		# 		self.url = parsed_response.get(PRK.PRODUCT_URL.value.lykdat_key)
-		# 		self.image_url = parsed_response.get(PRK.IMAGE_URL.value.lykdat_key)
-		# 		self.currency = parsed_response.get(PRK.CURRENCY.value.lykdat_key)
-		# 		self.brand = parsed_response.get(PRK.BRAND.value.lykdat_key)
-		# 	case "serpapi":
-		# 		parsed_response = ResponseParser.parse_serpapi_product(response)
-		# 		self.price = parsed_response.get(PRK.PRICE.value.serpapi_key)
-		# 		self.url = parsed_response.get(PRK.PRODUCT_URL.value.serpapi_key)
-		# 		self.image_url = parsed_response.get(PRK.IMAGE_URL.value.serpapi_key)
-		# 		self.currency = parsed_response.get("alternative_price", {}).get("currency")
-		# 		self.brand = parsed_response.get(PRK.BRAND.value.serpapi_key)
-		# 	case _:
-		# 		raise ValueError("Invalid source API")
-
+		self.name = parsed_response.get("name", "")
 
 	def __repr__(self):
 		return str(self.to_dict())
 
 	def to_dict(self):
 		return {
+			"name": self.name,
 			"price": self.price,
 			"currency": self.currency,
 			"url": self.url,
