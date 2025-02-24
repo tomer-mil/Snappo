@@ -10,6 +10,8 @@ import pytesseract
 from datetime import datetime
 import json
 
+from Product import Product
+
 # Replace with your actual SerpApi key
 SERPAPI_KEY = "970948c83db54825b85fb7365133297cd23184abd6d8e7d25693c816160a2db4"
 
@@ -33,15 +35,16 @@ def parse_shopping_results(data):
         shopping_results = data.get("shopping_results", [])
         parsed_results = []
         for result in shopping_results:
-            parsed_results.append({
-                "title": result.get("title"),
-                "price": result.get("price"),
-                "source": result.get("source"),    # store name
-                "product_link": result.get("product_link"),
-                "rating": result.get("rating"),
-                "reviews": result.get("reviews"),
-                "thumbnail": result.get("thumbnail"),
-            })
+            parsed_results.append(Product(response=result, source="serpapi"))
+            # parsed_results.append({
+            #     "title": result.get("title"),
+            #     "price": result.get("price"),
+            #     "source": result.get("source"),    # store name
+            #     "product_link": result.get("product_link"),
+            #     "rating": result.get("rating"),
+            #     "reviews": result.get("reviews"),
+            #     "thumbnail": result.get("thumbnail"),
+            # })
         return parsed_results
     except Exception as e:
         print(f"Error parsing shopping results: {e}")
@@ -65,8 +68,6 @@ def search_product(query, limit=3):
         response.raise_for_status()
         results = response.json()
 
-        # Parse the shopping results
-        all_parsed = parse_shopping_results(results)
         # Parse the shopping results
         all_parsed = parse_shopping_results(results)
 

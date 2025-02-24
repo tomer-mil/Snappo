@@ -3,6 +3,7 @@ from datetime import datetime
 from io import BytesIO
 import requests
 from Product import Product
+from PIL import Image
 
 LYKDAT_URL = "https://cloudapi.lykdat.com/v1/global/search"
 API_KEY = "58c2f99e908650cf4b6c35f4cdd7131e52ae6e6ab151fc8459a16a5fa9c3b33b"
@@ -42,13 +43,13 @@ def call_lykdat_global_search_mock(image):
         return json.load(f)
 
 
-def parse_lykdat_response(response_json):
+def parse_lykdat_response(response_json) -> list[Product]:
     # Parse the response from LykDat API
     lykdat_result_products = response_json["data"]["result_groups"][0]["similar_products"]
-    return parse_response_product(products=lykdat_result_products)
+    return convert_to_product_objects_list(products=lykdat_result_products)
 
 
-def parse_response_product(products):
+def convert_to_product_objects_list(products: dict) -> list[Product]:
     parsed_results = []
 
     for product in products:
@@ -65,8 +66,8 @@ def parse_response_product(products):
     return parsed_results
 
 
-def search_lykdat(pil_image):
-    img_byte_arr = convert_pil_to_bytes(pil_image)
+def search_lykdat(image: Image):
+    img_byte_arr = convert_pil_to_bytes(image)
 
     # TODO: Don't forget to change back to original call! lykdat_response = call_lykdat_global_search(image=img_byte_arr)
 

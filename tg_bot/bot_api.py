@@ -33,10 +33,10 @@ SHOWING_PRODUCT = 2
 # In-memory storage for user data (per chat)
 user_sessions = {}
 
-async def run_segmorfer(image):
+async def run_segmorfer(image) -> list:
     if tomer_and_zoe:
-        segmorfer = ClothesSegmorfer(image_bytes=image)
-        return segmorfer.get_clothes_from_image()
+        segmorfer = ClothesSegmorfer()
+        return segmorfer.get_clothes_from_image(image=image)
 
     return ["hat", "upper-clothes", "pants"]  # Dummy data
 
@@ -87,9 +87,7 @@ async def welcome_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Track that we've welcomed this user (avoid spamming if they send multiple photos)
     if 'welcomed' not in user_sessions.get(chat_id, {}):
         user_sessions.setdefault(chat_id, {})['welcomed'] = True
-        await update.message.reply_text(
-            Messages.WELCOME_MESSAGE
-        )
+        await update.message.reply_text(Messages.WELCOME_MESSAGE)
 
     # Move to waiting for photo
     return WAITING_PHOTO

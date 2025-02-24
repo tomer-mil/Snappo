@@ -51,9 +51,8 @@ class ClothesSegmorfer:
         17: [64, 0, 64]      # Scarf
     }
 
-    def __init__(self, image_bytes):
+    def __init__(self):
         self.processor, self.model = self.load_model()
-        self.image = Image.open(image_bytes)
 
     ##################################
     ### Clothes Extraction Methods ###
@@ -117,7 +116,12 @@ class ClothesSegmorfer:
         return detected_items
 
 
-    def get_clothes_from_image(self) -> list[dict]:
+    def get_clothes_from_image(self, image) -> list[dict]:
+        if self.image:
+            self.image.close()
+        else:
+            self.image = Image.open(image)
+
         # Get segmentation map
         self.seg_map = self.get_segmentation_map()
 
@@ -265,7 +269,7 @@ class ClothesSegmorfer:
 
     @staticmethod
     def test_clothes_extraction(image_url="media/demo_photo_0.jpeg"):
-        segmorfer = ClothesSegmorfer(image_url)
-        clothes = segmorfer.get_clothes_from_image()
+        segmorfer = ClothesSegmorfer()
+        clothes = segmorfer.get_clothes_from_image(image_url)
         segmorfer.display_segmentation_plot()
         segmorfer.display_extracted_clothes_plot(clothes_list=clothes)
