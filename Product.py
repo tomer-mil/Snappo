@@ -1,4 +1,5 @@
 import json
+from currency_symbols import CurrencySymbols
 
 from response_parser import ResponseParser
 from response_enum import ProductResponseKeys as PRK
@@ -20,9 +21,12 @@ class Product:
 		self.price = parsed_response.get("price", -1)
 		self.url = parsed_response.get("url", "")
 		self.image_url = parsed_response.get("image_url", "")
-		self.currency = parsed_response.get("currency", "")
 		self.brand = parsed_response.get("brand", "")
 		self.name = parsed_response.get("name", "")
+		try:
+			self.currency = CurrencySymbols.get_symbol(currency=parsed_response.get("currency", ""))
+		except KeyError:
+			self.currency = "$"
 
 	def __repr__(self):
 		return str(self.to_dict())

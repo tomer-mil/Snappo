@@ -15,19 +15,18 @@ from telegram.ext import (
     ConversationHandler
 )
 
-from segmorfer_b2_clothes import ClothesSegmorfer
 import Messages
+import Buttons
+from Constants import TelegramBot as TG_BOT
 from search_engine import SearchEngine
-from tg_bot.fallback_for_lykdat_no_image import replace_product_with_serp
 
 # initialize logging for tracking the bot activity
 logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", 
+    format=TG_BOT.LOGGING_FORMAT,
     level=logging.INFO
 )
 
 BOT_API_KEY = "7596674915:AAF2VwAllFfBHTIIVRd2TYtU-GQ6pLiW04g"
-tomer_and_zoe = False
 
 # === STATES ===
 WAITING_PHOTO = 0
@@ -126,7 +125,7 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return WAITING_ITEM_SELECTION
 
     except Exception as e:
-        logging.error(f"Error processing photo: {e}")
+        logging.error(f"{TG_BOT.PHOTO_PROCESSING_ERROR_MESSAGE} {e}")
         await update.message.reply_text(Messages.GENERAL_ERROR_MESSAGE)
         return WAITING_PHOTO
 
@@ -165,6 +164,14 @@ async def item_selection_callback(update: Update, context: ContextTypes.DEFAULT_
         await query.message.reply_text(Messages.INVALID_SELECTION_ERROR_MESSAGE)
         return WAITING_ITEM_SELECTION
 
+def build_clothe_message(product):
+    return (
+        f"👗 **{product.name}**\n\n"
+        f"💲 **Price:** {product.price}{product.currency}\n\n"
+        f"🔗 [**Purchase Link**]({product.url})\n\n"
+        f"🛍️ Happy Shopping! 🎉"
+    )
+
 
 async def show_product(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """
@@ -198,27 +205,10 @@ async def show_product(update: Update, context: ContextTypes.DEFAULT_TYPE):
     product = products[current_index]
 
     # Build the reply text
-    text_msg = (
-        f"👗 **{product.name}**\n\n"
-        f"💲 **Price:** {product.price} {product.currency}\n\n"
-        f"[🔗 **Purchase Link**]({product.url})\n\n"
-        f"🛍️ Happy Shopping! 🎉"
-    )
+    text_msg = build_clothe_message(product=product)
 
     # Buttons
-    keyboard = [
-        [
-            InlineKeyboardButton(Messages.NEXT_PRODUCT_BUTTON_TEXT, callback_data="NEXT_PRODUCT"),
-            InlineKeyboardButton(Messages.SEARCH_ANOTHER_ITEM_BUTTON_TEXT, callback_data="SEARCH_ANOTHER"),
-        ],
-        [
-            InlineKeyboardButton(Messages.FOUND_ITEM_BUTTON_TEXT, callback_data="DONE"),
-        ],
-        [
-              InlineKeyboardButton(Messages.NEW_UPLOAD_BUTTON_TEXT, callback_data="UPLOAD_NEW"),
-        ]
-    ]
-    reply_markup = InlineKeyboardMarkup(keyboard)
+    reply_markup = InlineKeyboardMarkup(Buttons.CLOTHE_MESSAGE_BUTTONS)
 
     # Edit current message or send a new one
     if query:
@@ -278,7 +268,7 @@ async def product_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
         await query.message.reply_text(
-            "Which clothing item do you want to search for?",
+            Messages.SEARCH_ANOTHER_CLOTHE_MESSAGE,
             reply_markup=reply_markup
         )
         return WAITING_ITEM_SELECTION

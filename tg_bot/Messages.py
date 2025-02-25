@@ -3,6 +3,7 @@ WELCOME_MESSAGE = "👋 Hello and welcome to Snappo Bot! 🎉\n\nSend me a photo
 PHOTO_PROCESSING_MESSAGE = "Such a nice outfit!👗\n\nLet me process the photo... 📸"
 DETECTED_CLOTHES_MESSAGE = "👗 I detected these clothing items in the photo. \n\nWhich one do you want to search for? 🛍️"
 CLOTHE_SELECTION_MESSAGE = "🎉 What a great choice! 🛍️\n\nGive me a few seconds to find a similar product for you to purchase! 🔍"
+SEARCH_ANOTHER_CLOTHE_MESSAGE = "Which clothing item do you want to search for?"
 NO_PRODUCTS_FOUND_MESSAGE =  "😞 Sorry, I couldn't find any products for that item.\nPlease send a new photo and I'll try again! 📸"
 FOUND_ITEM_RESPONSE_MESSAGE = "🎉 Awesome! I'm glad I could help! 😊\n\nFeel free to send me another picture anytime to search for more items 📸🛍️"
 NEW_UPLOAD_RESPONSE_MESSAGE = "No worries! 😊\nSend me a new photo whenever you're ready 📸"

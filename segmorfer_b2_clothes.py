@@ -1,11 +1,11 @@
 import io
 import torch
-from PIL.ImageFile import ImageFile
 from transformers import SegformerImageProcessor, SegformerForSemanticSegmentation
 import cv2
 from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
+from PIL.ImageFile import ImageFile
 
 import Constants
 

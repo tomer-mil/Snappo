@@ -46,3 +46,11 @@ class ClothesSegmorfer:
 		16: "Bag",
 		17: "Scarf"
 	}
+
+class TelegramBot:
+	LOGGING_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+	PHOTO_PROCESSING_ERROR_MESSAGE = "Error processing photo:"
+
+	class UserSessionDict:
+		SEARCH_ENGINE = "search_engine"
