@@ -47,9 +47,9 @@ def call_lykdat_global_search_mock(image):
         return json.load(f)
 
 
-def parse_lykdat_response(response_json) -> list[Product]:
+def parse_lykdat_response(response_json, limit=5) -> list[Product]:
     # Parse the response from LykDat API
-    lykdat_result_products = response_json["data"]["result_groups"][0]["similar_products"]
+    lykdat_result_products = response_json["data"]["result_groups"][0]["similar_products"][:limit]
     return convert_to_product_objects_list(products=lykdat_result_products)
 
 
@@ -70,13 +70,13 @@ def convert_to_product_objects_list(products: dict) -> list[Product]:
     return parsed_results
 
 
-def search_lykdat(image: Image):
+def search_lykdat(image: Image, limit=5):
     img_byte_arr = convert_pil_to_bytes(image)
 
     # TODO: Don't forget to change back to original call! lykdat_response = call_lykdat_global_search(image=img_byte_arr)
 
     lykdat_response = call_lykdat_global_search_mock(image=img_byte_arr)
-    parsed_response = parse_lykdat_response(lykdat_response)
+    parsed_response = parse_lykdat_response(lykdat_response, limit=limit)
 
     return parsed_response
 

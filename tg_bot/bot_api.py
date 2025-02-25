@@ -102,11 +102,6 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         photo_file = await update.message.photo[-1].get_file()
         image_bytes = await photo_file.download_as_bytearray()
 
-        # Run Segmorfer with image bytes
-        # clothes = await extract_clothes_from_user_image(update=update,
-        #                                                 chat_id=chat_id,
-        #                                                 image=image_bytes)  # Replacing segment_clothes()
-
         await extract_clothes_from_user_image(update=update,
                                               chat_id=chat_id,
                                               image=image_bytes)  # Replacing segment_clothes()

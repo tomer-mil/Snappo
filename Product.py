@@ -23,10 +23,13 @@ class Product:
 		self.image_url = parsed_response.get("image_url", "")
 		self.brand = parsed_response.get("brand", "")
 		self.name = parsed_response.get("name", "")
-		try:
-			self.currency = CurrencySymbols.get_symbol(currency=parsed_response.get("currency", ""))
-		except KeyError:
-			self.currency = "$"
+		if source == "lykdat":
+			try:
+				self.currency = CurrencySymbols.get_symbol(currency=parsed_response.get("currency", ""))
+			except KeyError:
+				self.currency = "$"
+		else:
+			self.currency = parsed_response.get("currency", "")
 
 	def __repr__(self):
 		return str(self.to_dict())
