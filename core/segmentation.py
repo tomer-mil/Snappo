@@ -103,11 +103,6 @@ class ClothesSegformer:
             pil_image = Image.fromarray(rgba)
             background.paste(pil_image, (0, 0), pil_image)
 
-            # detected_items.append({
-            #     "clothe_type": self.label_to_name[label],
-            #     "image": background
-            # })
-
             detected_items[self.label_to_name[label]] = background
 
         return detected_items
@@ -133,9 +128,6 @@ class ClothesSegformer:
         # Extract clothes using segmentation map
         detected_items = self.extract_clothes()
         return detected_items
-
-        # Print statistics
-        # print_detected_items(seg_map.cpu().numpy(), color_map)
 
     ##################################################
     ### Extracted Clothes Image Processing Methods ###

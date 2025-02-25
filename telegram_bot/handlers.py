@@ -19,7 +19,7 @@ from telegram_bot import messages, buttons
 from utils.constants import TelegramBot as Constants
 from core.search_engine import SearchEngine
 
-# initialize logging for tracking the bot activity
+# Initialize logging for tracking the bot activity
 logging.basicConfig(
     format=Constants.LOGGING_FORMAT,
     level=logging.INFO
@@ -113,7 +113,7 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         await extract_clothes_from_user_image(update=update,
                                               chat_id=chat_id,
-                                              image=image_bytes)  # Replacing segment_clothes()
+                                              image=image_bytes)
 
         # Ask user which clothing item to search for
         keyboard = [

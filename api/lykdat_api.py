@@ -71,13 +71,6 @@ def convert_to_product_objects_list(products: dict) -> list[Product]:
 
     for product in products:
         parsed_result = Product(response=product, source="lykdat")
-        # parsed_result = {
-        #     "brand": product["brand_name"],
-        #     "currency": product["currency"],
-        #     "image": product["matching_image"],
-        #     "price": product["price"],
-        #     "url": product["url"]
-        # }
         parsed_results.append(parsed_result)
 
     return parsed_results
@@ -88,8 +81,6 @@ def search_lykdat(image: Image, limit=5):
     Conducts a Lykdat API search using a given image and returns parsed product results.
     """
     img_byte_arr = convert_pil_to_bytes(image)
-
-    # TODO: Don't forget to change back to original call! lykdat_response = call_lykdat_global_search(image=img_byte_arr)
 
     lykdat_response = call_lykdat_global_search_mock(image=img_byte_arr)
     parsed_response = parse_lykdat_response(lykdat_response, limit=limit)
