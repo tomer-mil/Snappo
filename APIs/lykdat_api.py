@@ -5,7 +5,7 @@ from PIL import Image
 from datetime import datetime
 
 from Product import Product
-import Constants
+from Constants import LykdatAPI as Constants
 
 API_KEY = "58c2f99e908650cf4b6c35f4cdd7131e52ae6e6ab151fc8459a16a5fa9c3b33b"
 
@@ -31,11 +31,11 @@ def call_lykdat_global_search(image):
     response = None
 
     try:
-        response = requests.post(Constants.LykdatAPI.LYKDAT_GLOBAL_SEARCH_URL, data=payload, files=files)
+        response = requests.post(Constants.LYKDAT_GLOBAL_SEARCH_URL, data=payload, files=files)
         response.raise_for_status()  # Raise exception for bad status codes
 
     except requests.exceptions.RequestException as e:
-        print(f"{Constants.LykdatAPI.API_REQUEST_ERROR_MESSAGE} {str(e)}")
+        print(f"{Constants.API_REQUEST_ERROR_MESSAGE} {str(e)}")
     except Exception as e:
         print(f"Unexpected error: {str(e)}")
 
@@ -43,7 +43,7 @@ def call_lykdat_global_search(image):
 
 def call_lykdat_global_search_mock(image):
 
-    with open(Constants.LykdatAPI.GLOBAL_SEARCH_MOCK_RESPONSE_PATH, 'r') as f:
+    with open(Constants.GLOBAL_SEARCH_MOCK_RESPONSE_PATH, 'r') as f:
         return json.load(f)
 
 
@@ -75,7 +75,7 @@ def search_lykdat(image: Image):
 
     # TODO: Don't forget to change back to original call! lykdat_response = call_lykdat_global_search(image=img_byte_arr)
 
-    lykdat_response = call_lykdat_global_search(image=img_byte_arr)
+    lykdat_response = call_lykdat_global_search_mock(image=img_byte_arr)
     parsed_response = parse_lykdat_response(lykdat_response)
 
     return parsed_response

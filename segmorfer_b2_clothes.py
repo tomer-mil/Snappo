@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from PIL.ImageFile import ImageFile
 
-import Constants
+from Constants import ClothesSegmorfer as Constants
 
 class ClothesSegmorfer:
 
@@ -20,8 +20,8 @@ class ClothesSegmorfer:
     seg_map: torch.Tensor
     colored_mask: np.ndarray
 
-    label_to_name = Constants.ClothesSegmorfer.LABEL_TO_NAME
-    color_map = Constants.ClothesSegmorfer.COLOR_MAP
+    label_to_name = Constants.LABEL_TO_NAME
+    color_map = Constants.COLOR_MAP
 
     def __init__(self):
         self.processor, self.model = self.load_model()
@@ -31,8 +31,8 @@ class ClothesSegmorfer:
     ##################################
     @staticmethod
     def load_model():
-        processor = SegformerImageProcessor.from_pretrained(Constants.ClothesSegmorfer.B2_CLOTHES_MODEL_NAME)
-        model = SegformerForSemanticSegmentation.from_pretrained(Constants.ClothesSegmorfer.B2_CLOTHES_MODEL_NAME)
+        processor = SegformerImageProcessor.from_pretrained(Constants.B2_CLOTHES_MODEL_NAME)
+        model = SegformerForSemanticSegmentation.from_pretrained(Constants.B2_CLOTHES_MODEL_NAME)
         model.eval()
         return processor, model
 

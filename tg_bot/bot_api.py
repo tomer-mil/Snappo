@@ -17,12 +17,12 @@ from telegram.ext import (
 
 import Messages
 import Buttons
-from Constants import TelegramBot as TG_BOT
+from Constants import TelegramBot as Constants
 from search_engine import SearchEngine
 
 # initialize logging for tracking the bot activity
 logging.basicConfig(
-    format=TG_BOT.LOGGING_FORMAT,
+    format=Constants.LOGGING_FORMAT,
     level=logging.INFO
 )
 
@@ -125,7 +125,7 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return WAITING_ITEM_SELECTION
 
     except Exception as e:
-        logging.error(f"{TG_BOT.PHOTO_PROCESSING_ERROR_MESSAGE} {e}")
+        logging.error(f"{Constants.PHOTO_PROCESSING_ERROR_MESSAGE} {e}")
         await update.message.reply_text(Messages.GENERAL_ERROR_MESSAGE)
         return WAITING_PHOTO
 

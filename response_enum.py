@@ -12,7 +12,7 @@ class ProductResponseKeys(Enum):
     )
     PRICE = ResponseMapping(
         lykdat_key="price",
-        serpapi_key="extracted_price"
+        serpapi_key="price"
     )
     CURRENCY = ResponseMapping(
         lykdat_key="currency",

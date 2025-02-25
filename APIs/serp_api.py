@@ -8,7 +8,7 @@ import requests
 from PIL import Image
 import pytesseract
 
-import Constants
+from Constants import SerpAPI as Constants
 from Product import Product
 
 # Replace with your actual SerpApi key
@@ -23,7 +23,7 @@ def extract_text_from_image(image_path):
         text = pytesseract.image_to_string(img)
         return text.strip()
     except Exception as e:
-        print(f"{Constants.SerpAPI.IMAGE_EXTRACTION_ERROR_MESSAGE} {e}")
+        print(f"{Constants.IMAGE_EXTRACTION_ERROR_MESSAGE} {e}")
         return ""
 
 def parse_shopping_results(data):
@@ -46,7 +46,7 @@ def parse_shopping_results(data):
             # })
         return parsed_results
     except Exception as e:
-        print(f"{Constants.SerpAPI.SHOPPING_RESULTS_PARSING_ERROR_MESSAGE} {e}")
+        print(f"{Constants.SHOPPING_RESULTS_PARSING_ERROR_MESSAGE} {e}")
         return []
 
 def build_serpapi_params(query, limit):
@@ -68,7 +68,7 @@ def search_product(query, limit=3):
     params = build_serpapi_params(query=query, limit=limit)
     
     try:
-        response = requests.get(Constants.SerpAPI.SERPAPI_SEARCH_ENDPOINT, params=params)
+        response = requests.get(Constants.SERPAPI_SEARCH_ENDPOINT, params=params)
         response.raise_for_status()
         results = response.json()
 
@@ -87,5 +87,5 @@ def search_product(query, limit=3):
         # Return only the first `limit` results
         return all_parsed[:limit]
     except Exception as e:
-        print(f"{Constants.SerpAPI.SEARCH_ERROR_MESSAGE} {e}")
+        print(f"{Constants.SEARCH_ERROR_MESSAGE} {e}")
         return []
