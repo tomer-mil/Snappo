@@ -56,7 +56,7 @@ Snappo is a Telegram bot that uses computer vision to identify clothing items in
 1. Clone the repository:
    ```bash
    git clone https://github.com/tomer-mil/snappo.git
-   cd snappo-bot
+   cd snappo
    ```
 
 2. Create a virtual environment and activate it:
@@ -110,15 +110,15 @@ The Snappo Bot is already running and available on Telegram!
 
 ## Project Structure
 
-- `bot_api.py`: Main Telegram bot implementation
+- `handlers.py`: Main Telegram bot implementation
 - `search_engine.py`: Coordinates search functionality
-- `segmorfer_b2_clothes.py`: Clothing segmentation using AI
+- `segmentation.py`: Clothing segmentation using AI
 - `lykdat_api.py`: Visual similarity search API client
 - `serp_api.py`: Text-based product search API client
-- `Product.py`: Product data model
-- `Constants.py`: Configuration constants
-- `Messages.py`: User-facing text messages
-- `Buttons.py`: UI button definitions
+- `product.py`: Product data model
+- `constants.py`: Configuration constants
+- `messages.py`: User-facing text messages
+- `buttons.py`: UI button definitions
 - `response_parser.py`: Standardizes API responses
 - `response_enum.py`: Enumeration for API field mapping
 
