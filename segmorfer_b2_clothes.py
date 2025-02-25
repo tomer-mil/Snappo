@@ -1,5 +1,4 @@
 import io
-
 import torch
 from PIL.ImageFile import ImageFile
 from transformers import SegformerImageProcessor, SegformerForSemanticSegmentation
@@ -7,6 +6,8 @@ import cv2
 from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
+
+import Constants
 
 class ClothesSegmorfer:
 
@@ -19,39 +20,8 @@ class ClothesSegmorfer:
     seg_map: torch.Tensor
     colored_mask: np.ndarray
 
-    label_to_name = {
-        1: "hat",
-        3: "sunglasses",
-        4: "upper-clothes",
-        5: "skirt",
-        6: "pants",
-        7: "dress",
-        8: "belt",
-        9: "l_shoe",
-        10: "r_shoe",
-        16: "bag",
-        17: "scarf"
-    }
-    color_map = {
-        0: [0, 0, 0],        # Background
-        1: [255, 0, 0],      # Hat
-        2: [0, 255, 0],      # Hair
-        3: [0, 0, 255],      # Sunglasses
-        4: [255, 255, 0],    # Upper-clothes
-        5: [255, 0, 255],    # Skirt
-        6: [0, 255, 255],    # Pants
-        7: [128, 0, 0],      # Dress
-        8: [0, 128, 0],      # Belt
-        9: [0, 0, 128],      # Left-Shoe
-        10: [128, 128, 0],   # Right-shoe
-        11: [128, 0, 128],   # Face
-        12: [0, 128, 128],   # Left-leg
-        13: [64, 0, 0],      # Right-leg
-        14: [0, 64, 0],      # Left-arm
-        15: [0, 0, 64],      # Right-arm
-        16: [64, 64, 0],     # Bag
-        17: [64, 0, 64]      # Scarf
-    }
+    label_to_name = Constants.ClothesSegmorfer.LABEL_TO_NAME
+    color_map = Constants.ClothesSegmorfer.COLOR_MAP
 
     def __init__(self):
         self.processor, self.model = self.load_model()
@@ -61,8 +31,8 @@ class ClothesSegmorfer:
     ##################################
     @staticmethod
     def load_model():
-        processor = SegformerImageProcessor.from_pretrained("mattmdjaga/segformer_b2_clothes")
-        model = SegformerForSemanticSegmentation.from_pretrained("mattmdjaga/segformer_b2_clothes")
+        processor = SegformerImageProcessor.from_pretrained(Constants.ClothesSegmorfer.B2_CLOTHES_MODEL_NAME)
+        model = SegformerForSemanticSegmentation.from_pretrained(Constants.ClothesSegmorfer.B2_CLOTHES_MODEL_NAME)
         model.eval()
         return processor, model
 
