@@ -7,8 +7,9 @@ class SerpAPI:
 
 class LykdatAPI:
 	LYKDAT_GLOBAL_SEARCH_URL = "https://cloudapi.lykdat.com/v1/global/search"
-	API_REQUEST_ERROR_MESSAGE = "API request error:"
 	GLOBAL_SEARCH_MOCK_RESPONSE_PATH = "APIs/mock_responses/lykdat_global_search_response_mock.json"
+
+	API_REQUEST_ERROR_MESSAGE = "API request error:"
 
 class ClothesSegmorfer:
 	B2_CLOTHES_MODEL_NAME = "mattmdjaga/segformer_b2_clothes"
@@ -33,15 +34,15 @@ class ClothesSegmorfer:
 		17: [64, 0, 64]      # Scarf
 	}
 	LABEL_TO_NAME = {
-		1: "hat",
-		3: "sunglasses",
-		4: "upper-clothes",
-		5: "skirt",
-		6: "pants",
-		7: "dress",
-		8: "belt",
-		9: "l_shoe",
-		10: "r_shoe",
-		16: "bag",
-		17: "scarf"
+		1: "Hat",
+		3: "Sunglasses",
+		4: "Upper clothes",
+		5: "Skirt",
+		6: "Pants",
+		7: "Dress",
+		8: "Belt",
+		9: "Left Shoe",
+		10: "Right Shoe",
+		16: "Bag",
+		17: "Scarf"
 	}
