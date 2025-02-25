@@ -2,10 +2,9 @@ import json
 from io import BytesIO
 import requests
 from PIL import Image
-from datetime import datetime
 
-from Product import Product
-from Constants import LykdatAPI as Constants
+from core.models.product import Product
+from utils.constants import LykdatAPI as Constants
 
 API_KEY = "58c2f99e908650cf4b6c35f4cdd7131e52ae6e6ab151fc8459a16a5fa9c3b33b"
 

@@ -15,10 +15,9 @@ from telegram.ext import (
     ConversationHandler
 )
 
-import Messages
-import Buttons
-from Constants import TelegramBot as Constants
-from search_engine import SearchEngine
+from telegram_bot import messages, buttons
+from utils.constants import TelegramBot as Constants
+from core.search_engine import SearchEngine
 
 # initialize logging for tracking the bot activity
 logging.basicConfig(
@@ -36,7 +35,6 @@ SHOWING_PRODUCT = 2
 # In-memory storage for user data (per chat)
 user_sessions = {}
 
-
 async def extract_clothes_from_user_image(update, chat_id, image) -> Any:
     """
     Processes the user-uploaded image to extract clothing items.
@@ -47,7 +45,7 @@ async def extract_clothes_from_user_image(update, chat_id, image) -> Any:
 
     if not clothe_types:
         # No items found
-        await update.message.reply_text(Messages.NO_ITEMS_FOUND_ERROR_MESSAGE)
+        await update.message.reply_text(messages.NO_ITEMS_FOUND_ERROR_MESSAGE)
         return WAITING_PHOTO
 
     # Store detected clothing items in user session
@@ -55,10 +53,6 @@ async def extract_clothes_from_user_image(update, chat_id, image) -> Any:
     return WAITING_ITEM_SELECTION
 
 
-# === PLACEHOLDERS FOR TOMER & ZOE FUNCTIONS ===
-# the function for the searching of the clothing item (include fallbacks)
-# get as arg the clothing type
-# replcace with the new 'process_clothes' function
 def search_matching_products(chat_id, clothing_type):
     """
     Searches for products matching the detected clothing type.
@@ -83,7 +77,7 @@ async def welcome_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Track that we've welcomed this user (avoid spamming if they send multiple photos)
     if 'welcomed' not in user_sessions.get(chat_id, {}):
         user_sessions.setdefault(chat_id, {})['welcomed'] = True
-        await update.message.reply_text(Messages.WELCOME_MESSAGE)
+        await update.message.reply_text(messages.WELCOME_MESSAGE)
 
     # Move to waiting for photo
     return WAITING_PHOTO
@@ -110,7 +104,7 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await set_user_session_per_chat_id(chat_id=chat_id)
 
     # Acknowledge receipt
-    await update.message.reply_text(Messages.PHOTO_PROCESSING_MESSAGE)
+    await update.message.reply_text(messages.PHOTO_PROCESSING_MESSAGE)
 
     try:
         # Download photo as bytes (in memory)
@@ -129,14 +123,14 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         reply_markup = InlineKeyboardMarkup(keyboard)
         await update.message.reply_text(
-            Messages.DETECTED_CLOTHES_MESSAGE,
+            messages.DETECTED_CLOTHES_MESSAGE,
             reply_markup=reply_markup
         )
         return WAITING_ITEM_SELECTION
 
     except Exception as e:
         logging.error(f"{Constants.PHOTO_PROCESSING_ERROR_MESSAGE} {e}")
-        await update.message.reply_text(Messages.GENERAL_ERROR_MESSAGE)
+        await update.message.reply_text(messages.GENERAL_ERROR_MESSAGE)
         return WAITING_PHOTO
 
 
@@ -157,7 +151,7 @@ async def item_selection_callback(update: Update, context: ContextTypes.DEFAULT_
         user_data["chosen_clothe_type"] = chosen_clothe_type
 
         # Let user know we are searching
-        await query.message.reply_text(Messages.CLOTHE_SELECTION_MESSAGE)
+        await query.message.reply_text(messages.CLOTHE_SELECTION_MESSAGE)
 
         # Search for products
         products = search_matching_products(chat_id=chat_id,
@@ -171,7 +165,7 @@ async def item_selection_callback(update: Update, context: ContextTypes.DEFAULT_
 
     else:
         # Shouldn't happen if coded properly
-        await query.message.reply_text(Messages.INVALID_SELECTION_ERROR_MESSAGE)
+        await query.message.reply_text(messages.INVALID_SELECTION_ERROR_MESSAGE)
         return WAITING_ITEM_SELECTION
 
 
@@ -208,7 +202,7 @@ async def show_product(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not products:
         # Edge case, no product found
         if query:
-            await query.message.reply_text(Messages.NO_PRODUCTS_FOUND_MESSAGE)
+            await query.message.reply_text(messages.NO_PRODUCTS_FOUND_MESSAGE)
 
         return WAITING_PHOTO
 
@@ -222,7 +216,7 @@ async def show_product(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text_msg = build_clothe_message(product=product)
 
     # Buttons
-    reply_markup = InlineKeyboardMarkup(Buttons.CLOTHE_MESSAGE_BUTTONS)
+    reply_markup = InlineKeyboardMarkup(buttons.CLOTHE_MESSAGE_BUTTONS)
 
     # Edit current message or send a new one
     if query:
@@ -282,14 +276,14 @@ async def product_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
         await query.message.reply_text(
-            Messages.SEARCH_ANOTHER_CLOTHE_MESSAGE,
+            messages.SEARCH_ANOTHER_CLOTHE_MESSAGE,
             reply_markup=reply_markup
         )
         return WAITING_ITEM_SELECTION
 
     elif query.data == "DONE":
         # Reset flow
-        await query.message.reply_text(Messages.FOUND_ITEM_RESPONSE_MESSAGE)
+        await query.message.reply_text(messages.FOUND_ITEM_RESPONSE_MESSAGE)
 
         # Clear session or partially reset
         user_sessions[chat_id]["current_product_index"] = 0
@@ -297,7 +291,7 @@ async def product_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     elif query.data == "UPLOAD_NEW":
         # Reset flow and ask the user to send a new photo
-        await query.message.reply_text(Messages.NEW_UPLOAD_RESPONSE_MESSAGE)
+        await query.message.reply_text(messages.NEW_UPLOAD_RESPONSE_MESSAGE)
 
         # Clear session or partially reset
         user_sessions[chat_id]["current_product_index"] = 0

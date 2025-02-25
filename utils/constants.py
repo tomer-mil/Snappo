@@ -7,11 +7,11 @@ class SerpAPI:
 
 class LykdatAPI:
 	LYKDAT_GLOBAL_SEARCH_URL = "https://cloudapi.lykdat.com/v1/global/search"
-	GLOBAL_SEARCH_MOCK_RESPONSE_PATH = "APIs/mock_responses/lykdat_global_search_response_mock.json"
+	GLOBAL_SEARCH_MOCK_RESPONSE_PATH = "../tests/mock_data/lykdat_global_search_response_mock.json"
 
 	API_REQUEST_ERROR_MESSAGE = "API request error:"
 
-class ClothesSegmorfer:
+class ClothesSegformer:
 	B2_CLOTHES_MODEL_NAME = "mattmdjaga/segformer_b2_clothes"
 	COLOR_MAP = {
 		0: [0, 0, 0],        # Background

@@ -5,12 +5,10 @@ import cv2
 from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
-from PIL.ImageFile import ImageFile
 
-from Constants import ClothesSegmorfer as Constants
+from utils.constants import ClothesSegformer as Constants
 
-
-class ClothesSegmorfer:
+class ClothesSegformer:
     """
     A class for segmenting clothing items from images using a pre-trained Segformer model.
     This class provides methods for image preprocessing, segmentation, and extraction of individual clothing items.
@@ -294,7 +292,7 @@ class ClothesSegmorfer:
 
     @staticmethod
     def test_clothes_extraction(image_url="media/demo_photo_0.jpeg"):
-        segmorfer = ClothesSegmorfer()
-        clothes = segmorfer.get_clothes_from_image(image_url)
-        segmorfer.display_segmentation_plot()
-        segmorfer.display_extracted_clothes_plot(clothes_list=clothes)
+        segformer = ClothesSegformer()
+        clothes = segformer.get_clothes_from_image(image_url)
+        segformer.display_segmentation_plot()
+        segformer.display_extracted_clothes_plot(clothes_list=clothes)

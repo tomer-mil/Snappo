@@ -55,7 +55,7 @@ Snappo is a Telegram bot that uses computer vision to identify clothing items in
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/snappo-bot.git
+   git clone https://github.com/tomer-mil/snappo.git
    cd snappo-bot
    ```
 

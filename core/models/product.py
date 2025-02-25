@@ -1,9 +1,7 @@
 import json
 from currency_symbols import CurrencySymbols
 
-from response_parser import ResponseParser
-from response_enum import ProductResponseKeys as PRK
-
+from utils.response_parser import ResponseParser
 
 class Product:
     name: str

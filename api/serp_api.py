@@ -1,15 +1,9 @@
-"""
-serp_api.py
------------
-Handles communication with SerpApi to perform Google Shopping queries.
-"""
-
 import requests
 from PIL import Image
 import pytesseract
 
-from Constants import SerpAPI as Constants
-from Product import Product
+from utils.constants import SerpAPI as Constants
+from core.models.product import Product
 
 # Replace with your actual SerpApi key
 SERPAPI_KEY = "970948c83db54825b85fb7365133297cd23184abd6d8e7d25693c816160a2db4"

@@ -1,21 +1,21 @@
 import re
 from PIL import Image
-from APIs.lykdat_api import search_lykdat
-from APIs.serp_api import search_product as search_serp
-from Product import Product
-from segmorfer_b2_clothes import ClothesSegmorfer
 
+from api.lykdat_api import search_lykdat
+from api.serp_api import search_product as search_serp
+from models.product import Product
+from segmentation import ClothesSegformer
 
 class SearchEngine:
     """
     A class to handle clothing image segmentation and product search.
 
     Attributes:
-        segmorfer (ClothesSegmorfer): An instance of the ClothesSegmorfer class for detecting clothing items.
+        segformer (ClothesSegformer): An instance of the ClothesSegmorfer class for detecting clothing items.
         clothe_types (list[str]): A list of detected clothing types from an image.
         detected_clothes (dict): A dictionary mapping clothing types to their respective images.
     """
-    segmorfer: ClothesSegmorfer
+    segformer: ClothesSegformer
     clothe_types: list[str]
     detected_clothes: dict
 
@@ -24,7 +24,7 @@ class SearchEngine:
         Initializes the SearchEngine with an instance of ClothesSegmorfer,
         an empty list for clothing types, and an empty dictionary for detected clothes.
         """
-        self.segmorfer = ClothesSegmorfer()
+        self.segformer = ClothesSegformer()
         self.clothe_types = []
         self.detected_clothes = {}
 
@@ -96,5 +96,5 @@ class SearchEngine:
         Args:
             image (Image): The image to analyze.
         """
-        self.detected_clothes = self.segmorfer.get_clothes_from_image(image=image)
+        self.detected_clothes = self.segformer.get_clothes_from_image(image=image)
         self.clothe_types = list(self.detected_clothes.keys())
