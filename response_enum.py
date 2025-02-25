@@ -1,9 +1,11 @@
 from enum import Enum
 from typing import NamedTuple
 
+
 class ResponseMapping(NamedTuple):
     lykdat_key: str
     serpapi_key: str
+
 
 class ProductResponseKeys(Enum):
     BRAND = ResponseMapping(

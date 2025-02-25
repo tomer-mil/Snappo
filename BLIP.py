@@ -10,6 +10,7 @@ model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-capt
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
+
 # Function to generate a clothing-focused caption
 def generate_detailed_caption(photo_bytes, is_pil_image=False):
     if not is_pil_image:

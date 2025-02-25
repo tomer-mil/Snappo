@@ -2,16 +2,16 @@ import logging
 from typing import Any
 
 from telegram import (
-    Update, 
-    InlineKeyboardButton, 
+    Update,
+    InlineKeyboardButton,
     InlineKeyboardMarkup,
 )
 from telegram.ext import (
-    Application, 
-    MessageHandler, 
-    ContextTypes, 
+    Application,
+    MessageHandler,
+    ContextTypes,
     CallbackQueryHandler,
-    filters, 
+    filters,
     ConversationHandler
 )
 
@@ -36,7 +36,12 @@ SHOWING_PRODUCT = 2
 # In-memory storage for user data (per chat)
 user_sessions = {}
 
+
 async def extract_clothes_from_user_image(update, chat_id, image) -> Any:
+    """
+    Processes the user-uploaded image to extract clothing items.
+    Stores detected clothing types in the user session.
+    """
     user_sessions[chat_id]["search_engine"].extract_clothes_from_image(image)
     clothe_types = user_sessions[chat_id]["search_engine"].clothe_types
 
@@ -49,16 +54,23 @@ async def extract_clothes_from_user_image(update, chat_id, image) -> Any:
     user_sessions[chat_id]["clothe_types"] = clothe_types
     return WAITING_ITEM_SELECTION
 
+
 # === PLACEHOLDERS FOR TOMER & ZOE FUNCTIONS ===
 # the function for the searching of the clothing item (include fallbacks)
 # get as arg the clothing type
 # replcace with the new 'process_clothes' function
 def search_matching_products(chat_id, clothing_type):
     """
-    Returns a list of product dicts, each with keys: 'image_url', 'name', 'price', 'link'
+    Searches for products matching the detected clothing type.
+    Returns a list of product dictionaries containing:
+    - 'image_url'
+    - 'name'
+    - 'price'
+    - 'link'
     """
     products = user_sessions[chat_id]["search_engine"].search_product_by_type(clothing_type)
     return products
+
 
 # === HANDLERS ===
 
@@ -78,6 +90,9 @@ async def welcome_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def set_user_session_per_chat_id(chat_id: int):
+    """
+    Initializes user session with a SearchEngine instance for product searching.
+    """
     user_sessions.setdefault(chat_id, {})
     user_sessions[chat_id]["search_engine"] = SearchEngine()
     user_sessions[chat_id]["products"] = {}  # Will store matching products
@@ -159,7 +174,11 @@ async def item_selection_callback(update: Update, context: ContextTypes.DEFAULT_
         await query.message.reply_text(Messages.INVALID_SELECTION_ERROR_MESSAGE)
         return WAITING_ITEM_SELECTION
 
+
 def build_clothe_message(product):
+    """
+    Constructs the message containing product details.
+    """
     return (
         f"👗 **{product.name}**\n\n"
         f"💲 **Price:** {product.price}{product.currency}\n\n"
@@ -277,7 +296,7 @@ async def product_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return WAITING_PHOTO
 
     elif query.data == "UPLOAD_NEW":
-    # Reset flow and ask the user to send a new photo
+        # Reset flow and ask the user to send a new photo
         await query.message.reply_text(Messages.NEW_UPLOAD_RESPONSE_MESSAGE)
 
         # Clear session or partially reset
@@ -290,6 +309,9 @@ async def product_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def main():
+    """
+    Initializes and starts the Telegram bot application.
+    """
     application = Application.builder().token(BOT_API_KEY).build()
     application.bot_data["search_engine"] = SearchEngine()
 

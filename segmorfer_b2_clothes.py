@@ -9,8 +9,12 @@ from PIL.ImageFile import ImageFile
 
 from Constants import ClothesSegmorfer as Constants
 
-class ClothesSegmorfer:
 
+class ClothesSegmorfer:
+    """
+    A class for segmenting clothing items from images using a pre-trained Segformer model.
+    This class provides methods for image preprocessing, segmentation, and extraction of individual clothing items.
+    """
     model: SegformerForSemanticSegmentation
     processor: SegformerImageProcessor
 
@@ -24,6 +28,9 @@ class ClothesSegmorfer:
     color_map = Constants.COLOR_MAP
 
     def __init__(self):
+        """
+        Initializes the ClothesSegmorfer by loading the pre-trained model and processor.
+        """
         self.processor, self.model = self.load_model()
 
     ##################################
@@ -31,17 +38,30 @@ class ClothesSegmorfer:
     ##################################
     @staticmethod
     def load_model():
+        """
+        Loads the pre-trained Segformer model and image processor for semantic segmentation.
+
+        Returns:
+            tuple: (SegformerImageProcessor, SegformerForSemanticSegmentation)
+        """
         processor = SegformerImageProcessor.from_pretrained(Constants.B2_CLOTHES_MODEL_NAME)
         model = SegformerForSemanticSegmentation.from_pretrained(Constants.B2_CLOTHES_MODEL_NAME)
         model.eval()
         return processor, model
 
-
     def process_image_inputs(self):
+        """
+        Processes the input image using the Segformer image processor.
+        """
         self.inputs = self.processor(images=self.image, return_tensors="pt")
 
-
     def get_segmentation_map(self):
+        """
+        Generates a segmentation map for the input image.
+
+        Returns:
+            torch.Tensor: Segmentation map of the image.
+        """
         self.process_image_inputs()
 
         with torch.no_grad():
@@ -56,9 +76,13 @@ class ClothesSegmorfer:
         )
         return upsampled_logits.argmax(dim=1)[0]
 
-
     def extract_clothes(self) -> dict:
-        """Extract individual clothing items from the segmented image."""
+        """
+        Extracts individual clothing items from the segmented image.
+
+        Returns:
+            dict: A dictionary containing extracted clothing items with labels as keys and images as values.
+        """
         # detected_items = []
         detected_items = {}
         img_array = np.array(self.image)
@@ -90,8 +114,16 @@ class ClothesSegmorfer:
 
         return detected_items
 
-
     def get_clothes_from_image(self, image) -> dict:
+        """
+        Processes an image to extract clothing items.
+
+        Args:
+            image (bytes): The input image as a byte stream.
+
+        Returns:
+            dict: Extracted clothing items.
+        """
         if self.image:
             self.image.close()
 
@@ -107,21 +139,36 @@ class ClothesSegmorfer:
         # Print statistics
         # print_detected_items(seg_map.cpu().numpy(), color_map)
 
-
     ##################################################
     ### Extracted Clothes Image Processing Methods ###
     ##################################################
     @staticmethod
     def create_transparent_crop(cropped_img, cropped_mask):
-        """Create transparent RGBA image from cropped image and mask."""
+        """
+        Creates a transparent RGBA image from a cropped image and mask.
+
+        Args:
+            cropped_img (numpy.ndarray): Cropped image array.
+            cropped_mask (numpy.ndarray): Binary mask for transparency.
+
+        Returns:
+            numpy.ndarray: RGBA image with transparency.
+        """
         rgba = np.zeros((cropped_img.shape[0], cropped_img.shape[1], 4), dtype=np.uint8)
         rgba[..., :3] = cropped_img
         rgba[..., 3] = cropped_mask * 255
         return rgba
 
-
     def create_mask_and_indices(self, label):
-        """Create binary mask and get indices for a clothing item."""
+        """
+        Creates a binary mask and retrieves indices for a clothing item.
+
+        Args:
+            label (int): Label ID to create the mask for.
+
+        Returns:
+            tuple: (mask, y_indices, x_indices) or (None, None, None) if no mask is found.
+        """
         mask = (self.seg_map == label).cpu().numpy()
         if not np.any(mask):
             return None, None, None
@@ -132,16 +179,23 @@ class ClothesSegmorfer:
 
         return mask, y_indices, x_indices
 
-
     def get_bounding_box(self, indices, padding=5):
-        """Calculate padded bounding box coordinates."""
+        """
+        Calculates the bounding box coordinates for a segmented clothing item.
+
+        Args:
+            indices (tuple): (y_indices, x_indices) of the segmented item.
+            padding (int, optional): Padding around the bounding box. Defaults to 5.
+
+        Returns:
+            tuple: (y_min, y_max, x_min, x_max) bounding box coordinates.
+        """
         y_indices, x_indices = indices
         y_min = max(0, np.min(y_indices) - padding)
         y_max = min(self.seg_map.shape[0], np.max(y_indices) + padding)
         x_min = max(0, np.min(x_indices) - padding)
         x_max = min(self.seg_map.shape[1], np.max(x_indices) + padding)
         return y_min, y_max, x_min, x_max
-
 
     def create_masked_crop(self, label, img_array):
         """Create masked crop of an image for a given label.
@@ -167,7 +221,6 @@ class ClothesSegmorfer:
 
         return cropped_img, cropped_mask
 
-
     ##########################################
     ### Presenting Model's Results Methods ###
     ##########################################
@@ -183,7 +236,7 @@ class ClothesSegmorfer:
         cols = min(4, num_items)  # Maximum 4 items per row
         rows = (num_items + cols - 1) // cols
 
-        fig, axes = plt.subplots(rows, cols, figsize=(4*cols, 4*rows))
+        fig, axes = plt.subplots(rows, cols, figsize=(4 * cols, 4 * rows))
         if rows == 1 and cols == 1:
             axes = np.array([axes])
         axes = axes.flatten()
@@ -200,7 +253,6 @@ class ClothesSegmorfer:
 
         plt.tight_layout()
         plt.show()
-
 
     def display_segmentation_plot(self):
         fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(15, 5))
@@ -225,14 +277,12 @@ class ClothesSegmorfer:
 
         plt.show()
 
-
     def create_colored_mask(self):
         colored_mask = np.zeros((self.seg_map.shape[0], self.seg_map.shape[1], 3), dtype=np.uint8)
         for label, color in self.color_map.items():
             mask = self.seg_map == label
             colored_mask[mask] = color
         return colored_mask
-
 
     def print_detected_items(self):
         unique_labels = np.unique(self.seg_map)
