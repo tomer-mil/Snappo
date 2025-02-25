@@ -11,11 +11,18 @@ API_KEY = "58c2f99e908650cf4b6c35f4cdd7131e52ae6e6ab151fc8459a16a5fa9c3b33b"
 
 
 def convert_pil_to_bytes(pil_image):
+    """
+    Converts a PIL image to a byte array in JPEG format.
+    """
     img_byte_arr = BytesIO()
     pil_image.save(img_byte_arr, format='JPEG')
     return img_byte_arr.getvalue()
 
+
 def build_lykdat_params(image):
+    """
+    Builds the parameters required for the Lykdat API request.
+    """
     payload = {
         "api_key": API_KEY
     }
@@ -26,7 +33,9 @@ def build_lykdat_params(image):
 
 
 def call_lykdat_global_search(image):
-
+    """
+    Sends an image to the Lykdat global search API and returns the JSON response.
+    """
     payload, files = build_lykdat_params(image=image)
     response = None
 
@@ -41,19 +50,24 @@ def call_lykdat_global_search(image):
 
     return response.json()
 
-def call_lykdat_global_search_mock(image):
 
+def call_lykdat_global_search_mock(image):
     with open(Constants.GLOBAL_SEARCH_MOCK_RESPONSE_PATH, 'r') as f:
         return json.load(f)
 
 
 def parse_lykdat_response(response_json, limit=5) -> list[Product]:
-    # Parse the response from LykDat API
+    """
+    Parses the response from Lykdat API and extracts product information.
+    """
     lykdat_result_products = response_json["data"]["result_groups"][0]["similar_products"][:limit]
     return convert_to_product_objects_list(products=lykdat_result_products)
 
 
 def convert_to_product_objects_list(products: dict) -> list[Product]:
+    """
+    Converts raw product data from the Lykdat API response into a list of Product objects.
+    """
     parsed_results = []
 
     for product in products:
@@ -71,6 +85,9 @@ def convert_to_product_objects_list(products: dict) -> list[Product]:
 
 
 def search_lykdat(image: Image, limit=5):
+    """
+    Conducts a Lykdat API search using a given image and returns parsed product results.
+    """
     img_byte_arr = convert_pil_to_bytes(image)
 
     # TODO: Don't forget to change back to original call! lykdat_response = call_lykdat_global_search(image=img_byte_arr)
@@ -82,6 +99,9 @@ def search_lykdat(image: Image, limit=5):
 
 
 def search_images_list(images_list):
+    """
+    Searches multiple images using the Lykdat API and returns results for each.
+    """
     results = []
 
     for img in images_list:
