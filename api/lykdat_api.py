@@ -5,9 +5,12 @@ from PIL import Image
 
 from core.models.product import Product
 from utils.constants import LykdatAPI as Constants
+from utils.env_manager import get_api_key, LYKDAT_API_KEY_ENV
 
-API_KEY = "58c2f99e908650cf4b6c35f4cdd7131e52ae6e6ab151fc8459a16a5fa9c3b33b"
 
+# Get API key from environment variables
+def get_lykdat_api_key():
+    return get_api_key(LYKDAT_API_KEY_ENV)
 
 def convert_pil_to_bytes(pil_image):
     """
@@ -23,7 +26,7 @@ def build_lykdat_params(image):
     Builds the parameters required for the Lykdat API request.
     """
     payload = {
-        "api_key": API_KEY
+        "api_key": get_lykdat_api_key()
     }
     files = [
         ('image', ('image.jpg', image, 'image/jpeg'))
@@ -82,7 +85,7 @@ def search_lykdat(image: Image, limit=5):
     """
     img_byte_arr = convert_pil_to_bytes(image)
 
-    lykdat_response = call_lykdat_global_search_mock(image=img_byte_arr)
+    lykdat_response = call_lykdat_global_search(image=img_byte_arr)
     parsed_response = parse_lykdat_response(lykdat_response, limit=limit)
 
     return parsed_response

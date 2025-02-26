@@ -18,14 +18,13 @@ from telegram.ext import (
 from telegram_bot import messages, buttons
 from utils.constants import TelegramBot as Constants
 from core.search_engine import SearchEngine
+from utils.env_manager import get_api_key, TELEGRAM_BOT_API_KEY_ENV
 
 # Initialize logging for tracking the bot activity
 logging.basicConfig(
     format=Constants.LOGGING_FORMAT,
     level=logging.INFO
 )
-
-BOT_API_KEY = "7596674915:AAF2VwAllFfBHTIIVRd2TYtU-GQ6pLiW04g"
 
 # === STATES ===
 WAITING_PHOTO = 0
@@ -302,11 +301,19 @@ async def product_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return SHOWING_PRODUCT
 
 
-def main():
+def setup_and_run_bot():
     """
     Initializes and starts the Telegram bot application.
     """
-    application = Application.builder().token(BOT_API_KEY).build()
+
+    # Get bot API key from environment
+    bot_api_key = get_api_key(TELEGRAM_BOT_API_KEY_ENV)
+
+    if not bot_api_key:
+        print("Error: Telegram Bot API key is not set.")
+        return
+
+    application = Application.builder().token(bot_api_key).build()
     application.bot_data["search_engine"] = SearchEngine()
 
     # Conversation handler
@@ -335,7 +342,16 @@ def main():
     application.add_handler(conv_handler)
 
     # Start the bot (polling)
+    print("Bot is running! Press Ctrl+C to stop.")
     application.run_polling()
+
+
+
+def main():
+    """
+    Entry point for the bot. Calls setup_and_run_bot.
+    """
+    setup_and_run_bot()
 
 
 if __name__ == "__main__":

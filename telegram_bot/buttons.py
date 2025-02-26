@@ -1,4 +1,4 @@
-import messages
+import telegram_bot.messages as messages
 from telegram import InlineKeyboardButton
 
 CLOTHE_MESSAGE_BUTTONS = [

@@ -6,8 +6,11 @@ import pytesseract
 
 from utils.constants import SerpAPI as Constants
 from core.models.product import Product
+from utils.env_manager import get_api_key, SERPAPI_KEY_ENV
 
-SERPAPI_KEY = "970948c83db54825b85fb7365133297cd23184abd6d8e7d25693c816160a2db4"
+# Get API key from environment variables
+def get_serpapi_key():
+    return get_api_key(SERPAPI_KEY_ENV)
 
 def extract_text_from_image(image_path):
     """
@@ -44,17 +47,17 @@ def build_serpapi_params(query, limit):
         "q": query,
         "tbm": "shop",
         "num": limit,
-        "api_key": SERPAPI_KEY
+        "api_key": get_serpapi_key()
     }
 
 def search_product(query, limit=3):
     """
     Search for a product using SerpApi and return product details.
     """
-    with open(Constants.SEARCH_MOCK_RESPONSE_PATH, 'r', encoding="utf-8") as f:
-        mock_results = json.load(f)
-        mock_all_parsed = parse_shopping_results(data=mock_results)
-        return mock_all_parsed[:limit]
+    # with open(Constants.SEARCH_MOCK_RESPONSE_PATH, 'r', encoding="utf-8") as f:
+    #     mock_results = json.load(f)
+    #     mock_all_parsed = parse_shopping_results(data=mock_results)
+    #     return mock_all_parsed[:limit]
 
     params = build_serpapi_params(query=query, limit=limit)
     try:
