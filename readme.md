@@ -5,7 +5,6 @@
 
 Snappo is a Telegram bot that uses computer vision to identify clothing items in photos and helps users find similar products available for purchase online. Simply send a photo of an outfit, select which clothing item you're interested in, and Snappo will search for matching products!
 
-![Snappo Bot Demo](https://via.placeholder.com/720x400?text=Snappo+Bot+Demo)
 
 ## Table of Contents
 
@@ -17,6 +16,7 @@ Snappo is a Telegram bot that uses computer vision to identify clothing items in
 - [Usage](#usage)
 - [Project Structure](#project-structure)
 - [APIs Used](#apis-used)
+- [Tests](#tests)
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
@@ -74,18 +74,31 @@ Snappo is a Telegram bot that uses computer vision to identify clothing items in
 
 ## Configuration
 
-The bot is configured using environment variables:
+The bot uses API keys that can be configured in multiple ways:
 
-1. Set up the following environment variables:
-   ```
-   TELEGRAM_BOT_TOKEN=your_telegram_bot_token
-   LYKDAT_API_KEY=your_lykdat_api_key
-   SERPAPI_KEY=your_serpapi_key
-   ```
+1. **Automatic Configuration**:
+   - On first run, the bot will interactively prompt you to enter your API keys
+   - You'll be asked for:
+     ```
+     LYKDAT_API_KEY
+     SERPAPI_KEY
+     TELEGRAM_BOT_API_KEY
+     ```
+   - After entering the keys, you'll have the option to save them to a configuration file for future use
 
-2. You can set these environment variables using a `.env` file or through your hosting provider's configuration panel
+2. **Manual Environment Variables**:
+   - Alternatively, set these environment variables before running the bot:
+     ```
+     LYKDAT_API_KEY=your_lykdat_api_key
+     SERPAPI_KEY=your_serpapi_key
+     TELEGRAM_BOT_API_KEY=your_telegram_bot_token
+     ```
+   - You can use a `.env` file or set them in your system environment
 
-3. The application will automatically load these values when started
+3. **Saved Configuration**:
+   - Once saved, API keys are stored in `~/.snappo/config.json`
+   - The bot automatically loads these saved keys on startup
+   - You can update keys later by running the bot and entering new values when prompted
 
 ## Usage
 
@@ -121,6 +134,7 @@ The Snappo Bot is already running and available on Telegram!
 - `buttons.py`: UI button definitions
 - `response_parser.py`: Standardizes API responses
 - `response_enum.py`: Enumeration for API field mapping
+- `env_manager.py`: Manages API keys and environment variables
 
 ## APIs Used
 
@@ -135,6 +149,14 @@ Google Shopping search API used as a fallback when visual search doesn't yield g
 
 ### 4. HuggingFace Transformers
 Used for the SegFormer model that detects and segments clothing items in images.
+
+## Tests
+
+The project includes mock data for testing:
+
+- `lykdat_global_search_response_mock.json`: Mock responses from the LykDat API
+- `serapi_mock_results.json`: Mock results for clothing searches
+- `serpapi_mock_full_response.json`: Complete mock response from SerpAPI
 
 ## Contributing
 
@@ -151,8 +173,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Contact
-
-Project created by [Your Name]
 
 - **GitHub**: [tomer-mil](https://github.com/tomer-mil), [zoeyanai](https://github.com/zoeyanai), [YotamShekrelTau](https://github.com/YotamShekrelTau), [LiorBodner](https://github.com/LiorBodner)
 
