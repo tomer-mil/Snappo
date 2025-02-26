@@ -1,5 +1,6 @@
 class SerpAPI:
 	SERPAPI_SEARCH_ENDPOINT = "https://serpapi.com/search"
+	SEARCH_MOCK_RESPONSE_PATH = "tests/mock_data/serpapi_mock_full_response.json"
 
 	IMAGE_EXTRACTION_ERROR_MESSAGE = "Error extracting text from image:"
 	SHOPPING_RESULTS_PARSING_ERROR_MESSAGE = "Error parsing shopping results:"
@@ -7,7 +8,7 @@ class SerpAPI:
 
 class LykdatAPI:
 	LYKDAT_GLOBAL_SEARCH_URL = "https://cloudapi.lykdat.com/v1/global/search"
-	GLOBAL_SEARCH_MOCK_RESPONSE_PATH = "../tests/mock_data/lykdat_global_search_response_mock.json"
+	GLOBAL_SEARCH_MOCK_RESPONSE_PATH = "tests/mock_data/lykdat_global_search_response_mock.json"
 
 	API_REQUEST_ERROR_MESSAGE = "API request error:"
 

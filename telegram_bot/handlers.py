@@ -4,7 +4,7 @@ from typing import Any
 from telegram import (
     Update,
     InlineKeyboardButton,
-    InlineKeyboardMarkup,
+    InlineKeyboardMarkup, InputFile,
 )
 from telegram.ext import (
     Application,
@@ -53,7 +53,7 @@ async def extract_clothes_from_user_image(update, chat_id, image) -> Any:
     return WAITING_ITEM_SELECTION
 
 
-def search_matching_products(chat_id, clothing_type):
+async def search_matching_products(chat_id, clothing_type):
     """
     Searches for products matching the detected clothing type.
     Returns a list of product dictionaries containing:
@@ -154,8 +154,8 @@ async def item_selection_callback(update: Update, context: ContextTypes.DEFAULT_
         await query.message.reply_text(messages.CLOTHE_SELECTION_MESSAGE)
 
         # Search for products
-        products = search_matching_products(chat_id=chat_id,
-                                            clothing_type=chosen_clothe_type)
+        products = await search_matching_products(chat_id=chat_id,
+                                                  clothing_type=chosen_clothe_type)
 
         user_data["products"][chosen_clothe_type] = products
         user_data["current_product_index"] = 0
@@ -228,7 +228,7 @@ async def show_product(update: Update, context: ContextTypes.DEFAULT_TYPE):
         # Send a new message with product photo
         await context.bot.send_photo(
             chat_id=chat_id,
-            photo=product.image_url,
+            photo=InputFile(product.image_data),
             caption=text_msg,
             parse_mode="Markdown",
             reply_markup=reply_markup
@@ -237,7 +237,7 @@ async def show_product(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         # If not a callback, just send a new message
         await update.message.reply_photo(
-            photo=product.image_url,
+            photo=InputFile(product.image_data),
             caption=text_msg,
             parse_mode="Markdown",
             reply_markup=reply_markup

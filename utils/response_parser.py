@@ -1,5 +1,5 @@
 from typing import Dict, Any
-from response_enum import ProductResponseKeys
+from utils.response_enum import ProductResponseKeys
 
 
 class ResponseParser:

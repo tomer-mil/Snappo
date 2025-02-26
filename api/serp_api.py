@@ -1,3 +1,5 @@
+import json
+
 import requests
 from PIL import Image
 import pytesseract
@@ -49,8 +51,12 @@ def search_product(query, limit=3):
     """
     Search for a product using SerpApi and return product details.
     """
+    with open(Constants.SEARCH_MOCK_RESPONSE_PATH, 'r', encoding="utf-8") as f:
+        mock_results = json.load(f)
+        mock_all_parsed = parse_shopping_results(data=mock_results)
+        return mock_all_parsed[:limit]
+
     params = build_serpapi_params(query=query, limit=limit)
-    
     try:
         response = requests.get(Constants.SERPAPI_SEARCH_ENDPOINT, params=params)
         response.raise_for_status()
@@ -59,8 +65,8 @@ def search_product(query, limit=3):
         # Parse the shopping results
         all_parsed = parse_shopping_results(results)
 
-        # Return only the first `limit` results
         return all_parsed[:limit]
+
     except Exception as e:
         print(f"{Constants.SEARCH_ERROR_MESSAGE} {e}")
         return []

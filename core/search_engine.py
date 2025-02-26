@@ -3,8 +3,8 @@ from PIL import Image
 
 from api.lykdat_api import search_lykdat
 from api.serp_api import search_product as search_serp
-from models.product import Product
-from segmentation import ClothesSegformer
+from core.models.product import Product
+from core.segmentation import ClothesSegformer
 
 class SearchEngine:
     """
@@ -27,6 +27,10 @@ class SearchEngine:
         self.segformer = ClothesSegformer()
         self.clothe_types = []
         self.detected_clothes = {}
+
+    @staticmethod
+    def is_valid_image_data(img_data):
+        return img_data is not None
 
     @staticmethod
     def is_valid_image_url(url: str):
@@ -77,7 +81,11 @@ class SearchEngine:
 
         for product in lykdat_results:
             # Check if image URL is valid
-            if not self.is_valid_image_url(product.image_url):
+            # TODO: Make sure the new flow works!
+            # valid_image = self.is_valid_image_url(url=product.image_url)
+            valid_image = self.is_valid_image_data(img_data=product.image_data)
+
+            if not valid_image:
                 # Fallback to SerpAPI using product name
                 serp_results = search_serp(query=product.name)
                 if not serp_results:
@@ -85,6 +93,7 @@ class SearchEngine:
                     continue
                 # Take the first result from SerpAPI
                 product = serp_results[0]
+
             processed_results.append(product)
 
         return processed_results
