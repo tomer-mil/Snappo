@@ -1,13 +1,23 @@
+# Core dependencies
 torch>=2.5.1
 torchvision>=0.20.1
 python-telegram-bot>=20.0
 Pillow>=9.0.0
-requests~=2.32.3
-matplotlib~=3.10.0
-numpy~=2.2.1
-transformers~=4.48.0
-opencv-python
-transformers
-Pillow
-sam2
-huggingface_hub
+requests>=2.32.3
+matplotlib>=3.10.0
+numpy>=2.2.1
+transformers>=4.48.0
+
+# Image processing
+opencv-python>=4.8.0
+pytesseract>=0.3.10
+
+# Computer vision and AI models
+huggingface_hub>=0.19.0
+sam2>=0.0.8
+
+# API integrations
+currency-symbols>=2.0.1
+
+# File handling and utilities
+python-dotenv>=1.0.0
